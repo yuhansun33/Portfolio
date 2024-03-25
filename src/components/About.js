@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { FaLinkedin, FaGithub } from "react-icons/fa";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { cs_courses, iem_courses } from "../data";
 
 export default function About() {
@@ -97,14 +98,14 @@ export default function About() {
                   rel="noopener noreferrer"
                   className="mr-4"
                 >
-                  <FaLinkedin size={32} color="#0A66C2" />
+                  <FontAwesomeIcon icon={faLinkedin} style={{ fontSize: "32px", color: "#0A66C2" }} />
                 </a>
                 <a
                   href="https://github.com/yuhansun33"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <FaGithub size={32} color="#333" />
+                  <FontAwesomeIcon icon={faGithub} style={{ fontSize: "32px", color: "#333" }} />
                 </a>
               </div>
             </div>

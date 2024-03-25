@@ -2,9 +2,17 @@
   "name": "my-portfolio",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://yuhansun33.github.io/YuHan_Portfolio",
   "dependencies": {
     "@craco/craco": "^5.9.0",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-brands-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@heroicons/react": "^1.0.6",
+    "@mui/icons-material": "^5.15.14",
+    "@mui/material": "^5.15.14",
     "gh-pages": "^6.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -12,6 +20,8 @@
     "react-scripts": "^1.1.5"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
@@ -24,6 +34,8 @@
     ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.24.1",
+    "@babel/core": "^7.24.3",
     "autoprefixer": "^9.8.6",
     "postcss": "^7.0.36",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2"
