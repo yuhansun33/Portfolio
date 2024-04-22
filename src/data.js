@@ -95,9 +95,9 @@ export const courses = [
 export const cs_courses = [
   "Data Structures",
   "Algorithms",
+  "Artificial Intelligence",
   "Database system",
   "Opreating System",
-  "Artificial Intelligence",
   "Network Programming",
 ];
 
