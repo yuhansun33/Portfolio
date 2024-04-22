@@ -13,7 +13,7 @@ export default function About() {
   return (
     <section id="about">
       <div className="container mx-auto px-10 py-20">
-        <div className="flex flex-col md:flex-row items-center justify-center">
+        <div className="flex flex-col items-center md:flex-row items-center justify-center">
           <div className="lg:flex-grow md:w-4/5 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-14 md:mb-0 items-center text-center ml-24">
             <h1 className="title-font sm:text-4xl text-3xl mb-4 font-bold font-medium">
               Hi, I'm <span className="font-bold text-green-500">Yu Han</span>.
@@ -63,7 +63,7 @@ export default function About() {
                 </p>
               </div>
             )}
-            <div className="flex justify-center">
+            <div className="flex flex-col space-y-2 items-center sm:flex-row justify-center">
               <button
                 onClick={() => window.open('./YuHanSun_Resume.pdf', '_blank')}
                 className="inline-flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded text-lg"

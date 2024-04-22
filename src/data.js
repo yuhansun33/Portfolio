@@ -4,16 +4,16 @@ export const projects = [
     subtitle: "Python, OpenCV",
     description:
       "Implemented both supervised (Viola-Jones, YOLOv8) and unsupervised (K-means clustering) learning techniques to compare and analyze their performance in face detection tasks.",
-    image: "./yolo_result.png",
-    link: "https://github.com/yuhansun33/Chat_Bar",
+    image: "./yolo_result.jpg",
+    link: "https://github.com/yuhansun33/Face-Detection-using-Supervised-and-Unsupervised-Learning",
   },
   {
     title: "BattleSheep Game AI using Minimax and MCTS Algorithms",
     subtitle: "C++",
     description:
-      "Designed and developed an AI player for the BattleSheep game using Minimax and Monte Carlo Tree Search (MCTS) algorithms.",
+      "Designed and developed an AI player for the BattleSheep game using Minimax and Monte Carlo Tree Search (MCTS) algorithms, focusing on optimal move selection and strategy.",
     image: "./BattleSheep.png",
-    link: "https://github.com/yuhansun33/Chat_Bar",
+    link: "https://github.com/yuhansun33/BattleSheep-AI-Agent---Minimax-MCTS-UnionFind",
   },
   {
     title: "Online MUD Map Game with Integrated Chat Utility",
