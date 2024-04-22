@@ -1,5 +1,21 @@
 export const projects = [
   {
+    title: "Face Detection using Supervised and Unsupervised Learning",
+    subtitle: "Python, OpenCV",
+    description:
+      "Implemented both supervised (Viola-Jones, YOLOv8) and unsupervised (K-means clustering) learning techniques to compare and analyze their performance in face detection tasks.",
+    image: "./yolo_result.png",
+    link: "https://github.com/yuhansun33/Chat_Bar",
+  },
+  {
+    title: "BattleSheep Game AI using Minimax and MCTS Algorithms",
+    subtitle: "C++",
+    description:
+      "Designed and developed an AI player for the BattleSheep game using Minimax and Monte Carlo Tree Search (MCTS) algorithms.",
+    image: "./BattleSheep.png",
+    link: "https://github.com/yuhansun33/Chat_Bar",
+  },
+  {
     title: "Online MUD Map Game with Integrated Chat Utility",
     subtitle: "C++(SFML), MySQL",
     description:
@@ -35,9 +51,9 @@ export const projects = [
 
 export const experiences = [
   {
-    quote1:"• Contributed to over 7 cross-departmental projects, focusing on process optimization and automation.",
-    quote2:"• Automated departmental tasks using Robotic Process Automation, achieving a 7% reduction in routine work hours.",
-    quote3:"• Developed a VBA-based tool to automate the generation of monthly reports, enhancing efficiency and accuracy.",
+    quote1:"• Utilized SQL to extract and analyze departmental work data, maintaining dashboards to visualize key metrics and performance.",
+    quote2:"• Collaborated with cross-functional teams to identify for improvement and implemented data-driven solutions, optimizing workflow.",
+    quote3:"• Automated departmental tasks using Robotic Process Automation and developed a VBA-based tool, reducing routine work hours by 7%.",
       image: "./syntec_logo.jpg",
     company: "Syntec Technology",
     name: "Industrial Engineering Intern",
@@ -67,9 +83,9 @@ export const skills = [
 export const courses = [
   "Data Structures",
   "Algorithms",
+  "Artificial Intelligence",
   "Database system",
   "Opreating System",
-  "Artificial Intelligence",
   "Network Programming",
   "Statistics",
   "Operation Research",
