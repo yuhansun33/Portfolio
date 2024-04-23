@@ -43,7 +43,7 @@ export default function About() {
             </div>
             {showAbout ? (
               <p className="mb-8 leading-relaxed italic">
-                My academic background and leadership roles have sharpened my critical thinking skills. I analyze challenges effectively and devise practical solutions. Always eager to learn, I adapt well to dynamic environments. I'm excited to apply my problem-solving abilities and dedication to growth as a backend engineer.
+                My academic background and leadership roles have sharpened my critical thinking skills. I analyze challenges effectively and devise practical solutions. Always eager to learn, I adapt well to dynamic environments. I'm excited to apply my problem-solving abilities and dedication to growth as a software engineer.
               </p>
             ) : (
               <div>
