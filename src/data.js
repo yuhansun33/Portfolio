@@ -1,14 +1,14 @@
 export const projects = [
   {
     title: "Face Detection using Supervised and Unsupervised Learning",
-    subtitle: "Python, OpenCV",
+    subtitle: "Python, OpenCV, YOLOv8",
     description:
       "Implemented both supervised (Viola-Jones, YOLOv8) and unsupervised (K-means clustering) learning techniques to compare and analyze their performance in face detection tasks.",
     image: "./yolo_result.jpg",
     link: "https://github.com/yuhansun33/Face-Detection-using-Supervised-and-Unsupervised-Learning",
   },
   {
-    title: "BattleSheep Game AI using Minimax and MCTS Algorithms",
+    title: "Game AI agent using Minimax and MCTS Algorithms",
     subtitle: "C++",
     description:
       "Designed and developed an AI player for the BattleSheep game using Minimax and Monte Carlo Tree Search (MCTS) algorithms, focusing on optimal move selection and strategy.",
@@ -25,7 +25,7 @@ export const projects = [
   },
   {
     title: "Blockchain Application for Supply Chain Simulation",
-    subtitle: "React, Express, MySQL, JavaScript",
+    subtitle: "React, Node.js, Express, MySQL, JavaScript",
     description:
       "Developed a React-based blockchain interface, deploying a simulated network using Truffle, Ganache, and Web3.js, and implemented a login system with MySQL.",
     image: "./blockchain.png",
@@ -69,26 +69,14 @@ export const experiences = [
 ];
 
 export const skills = [
-  "JavaScript",
   "Python",
   "C/C++",
   "SQL",
+  "Pytorch",
+  "JavaScript",
   "React",
   "Node.js",
-  "Remix",
   "Solidity",
-  
-];
-
-export const courses = [
-  "Data Structures",
-  "Algorithms",
-  "Artificial Intelligence",
-  "Database system",
-  "Opreating System",
-  "Network Programming",
-  "Statistics",
-  "Operation Research",
   
 ];
 
