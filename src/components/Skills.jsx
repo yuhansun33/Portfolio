@@ -12,10 +12,10 @@ const SkillCategory = ({ category, index }) => {
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="glass rounded-xl p-6 border border-purple-500/30 hover:border-purple-500 transition-all"
+      className="bg-white rounded-xl p-6 border-2 border-blue-100 hover:border-blue-300 hover:shadow-lg transition-all"
     >
-      <h3 className="text-xl font-bold text-white mb-4 flex items-center">
-        <span className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 mr-3" />
+      <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center">
+        <span className="w-2 h-2 rounded-full bg-blue-500 mr-3" />
         {category.name}
       </h3>
       <div className="flex flex-wrap gap-3">
@@ -25,7 +25,7 @@ const SkillCategory = ({ category, index }) => {
             initial={{ scale: 0 }}
             animate={isInView ? { scale: 1 } : { scale: 0 }}
             transition={{ duration: 0.3, delay: index * 0.1 + i * 0.05 }}
-            className="px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-lg text-sm font-semibold text-gray-300 hover:border-blue-500 hover:text-white transition-all cursor-default"
+            className="px-4 py-2 bg-blue-50 border border-blue-200 rounded-lg text-sm font-medium text-blue-600 hover:border-blue-400 hover:bg-blue-100 transition-all cursor-default"
           >
             {skill}
           </motion.span>
@@ -45,21 +45,21 @@ const EducationCard = ({ education, index }) => {
       initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
       animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
       transition={{ duration: 0.6 }}
-      className="glass rounded-xl p-6 border-2 border-purple-500/50 hover:border-purple-500 transition-all"
+      className="bg-white rounded-xl p-6 border-2 border-blue-100 hover:border-blue-300 hover:shadow-lg transition-all"
     >
       <div className="flex items-start justify-between mb-4">
         <div className="flex-1">
-          <h3 className="text-2xl font-bold text-white mb-2">{education.degree}</h3>
-          <p className="text-lg text-purple-400 font-semibold mb-1">{education.school}</p>
-          <p className="text-gray-400 text-sm">{education.location}</p>
+          <h3 className="text-2xl font-bold text-slate-800 mb-2">{education.degree}</h3>
+          <p className="text-lg text-blue-600 font-semibold mb-1">{education.school}</p>
+          <p className="text-slate-500 text-sm">{education.location}</p>
         </div>
-        <span className="text-gray-400 text-sm whitespace-nowrap ml-4">{education.period}</span>
+        <span className="text-slate-500 text-sm whitespace-nowrap ml-4">{education.period}</span>
       </div>
       
       {education.details && (
         <ul className="space-y-2 mb-4">
           {education.details.map((detail, i) => (
-            <li key={i} className="flex items-start text-gray-300 text-sm">
+            <li key={i} className="flex items-start text-slate-600 text-sm">
               <span className="text-blue-400 mr-2 mt-1">▹</span>
               <span>{detail}</span>
             </li>
@@ -69,12 +69,12 @@ const EducationCard = ({ education, index }) => {
 
       {education.courses && (
         <div>
-          <p className="text-sm font-semibold text-gray-400 mb-2">Relevant Coursework:</p>
+          <p className="text-sm font-semibold text-slate-600 mb-2">Relevant Coursework:</p>
           <div className="flex flex-wrap gap-2">
             {education.courses.map((course, i) => (
               <span
                 key={i}
-                className="px-3 py-1 bg-purple-500/20 border border-purple-500/50 rounded-full text-xs text-purple-300"
+                className="px-3 py-1 bg-blue-50 border border-blue-200 rounded-full text-xs text-blue-600"
               >
                 {course}
               </span>
@@ -139,8 +139,7 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="min-h-screen py-20 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-gray-800/50 to-gray-900" />
+    <section id="skills" className="min-h-screen py-20 relative bg-white">
       
       <div className="container mx-auto px-6 relative z-10">
         {/* Skills Section */}
@@ -153,35 +152,11 @@ const Skills = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Skills & <span className="text-gradient">Expertise</span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            A comprehensive overview of my technical skills and proficiencies
-          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
           {skillCategories.map((category, index) => (
             <SkillCategory key={index} category={category} index={index} />
-          ))}
-        </div>
-
-        {/* Education Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="text-gradient">Education</span>
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Academic background and achievements
-          </p>
-        </motion.div>
-
-        <div className="space-y-6 max-w-4xl mx-auto">
-          {education.map((edu, index) => (
-            <EducationCard key={index} education={edu} index={index} />
           ))}
         </div>
       </div>
