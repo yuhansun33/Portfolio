@@ -12,9 +12,9 @@ const Hero = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left side - Text content */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
             className="space-y-6"
           >
             <h1 className="text-5xl md:text-6xl font-bold text-slate-800">
@@ -68,9 +68,9 @@ const Hero = () => {
 
           {/* Right side - Animated Data Visualization */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="relative h-[500px] rounded-2xl overflow-hidden"
           >
             {/* Background with gradient */}
