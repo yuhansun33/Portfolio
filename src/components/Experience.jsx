@@ -93,7 +93,7 @@ const Experience = () => {
           className="text-center mb-12"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Work <span className="text-gradient">Experience</span>
+            <span className="text-gradient">Work Experience</span>
           </h2>
         </motion.div>
 

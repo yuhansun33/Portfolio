@@ -123,7 +123,7 @@ const Projects = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Featured <span className="text-gradient">Projects</span>
+            <span className="text-gradient">Selected Projects</span>
           </h2>
         </motion.div>
 

@@ -63,14 +63,18 @@ body {
 }
 
 .text-gradient {
-  background-clip: text;
+  /* Fallback: solid blue color for browsers that don't support gradient text */
+  color: #3b82f6;
+  
+  /* Gradient background */
+  background: linear-gradient(to right, #3b82f6, #06b6d4);
+  
+  /* Clip the background to the text shape */
   -webkit-background-clip: text;
-  -moz-background-clip: text;
+  background-clip: text;
+  
+  /* Make text transparent so gradient shows through */
   -webkit-text-fill-color: transparent;
-  color: transparent;
-  background-image: linear-gradient(to right, #3b82f6, #06b6d4);
-  background-image: -webkit-linear-gradient(left, #3b82f6, #06b6d4);
-  background-image: -moz-linear-gradient(left, #3b82f6, #06b6d4);
 }
 
 /* Mobile Optimization */

@@ -116,7 +116,7 @@ const Skills = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Skills & <span className="text-gradient">Expertise</span>
+            <span className="text-gradient">Skills & Expertise</span>
           </h2>
         </motion.div>
 
