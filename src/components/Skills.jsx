@@ -89,54 +89,20 @@ const EducationCard = ({ education, index }) => {
 const Skills = () => {
   const skillCategories = [
     {
-      name: 'Programming Languages',
-      skills: ['Python', 'SQL', 'C/C++', 'JavaScript', 'TypeScript', 'HTML', 'CSS']
+      name: 'Languages & Frameworks',
+      skills: ['Python', 'SQL', 'C/C++', 'JavaScript', 'React', 'Node.js', 'PyTorch', 'TensorFlow', 'Pandas']
     },
     {
-      name: 'Frameworks & Libraries',
-      skills: ['React', 'Node.js', 'TensorFlow', 'PyTorch', 'Pandas', 'seaborn']
+      name: 'Data & Machine Learning',
+      skills: ['Spark', 'Hadoop', 'ETL', 'NLP', 'Statistical Modeling', 'PostgreSQL', 'MongoDB']
     },
     {
-      name: 'Data Analytics & Machine Learning',
-      skills: ['Apache Spark', 'Hadoop', 'ETL', 'NLP', 'statistical Modeling']
-    },
-    {
-      name: 'Cloud & DevOps',
-      skills: ['AWS', 'GCP', 'Docker', 'CI/CD', 'Git']
-    },
-    {
-      name: 'Databases',
-      skills: ['PostgreSQL', 'MongoDB', 'SQLite', 'MySQL']
+      name: 'Cloud & Platforms',
+      skills: ['AWS', 'GCP', 'Docker', 'Git', 'CI/CD']
     }
   ];
 
-  const education = [
-    {
-      degree: 'Master of Computer Science (MCS)',
-      school: 'Rice University',
-      location: 'Houston, Texas, USA',
-      period: '2023 - 2025',
-      details: [
-        'GPA: 3.9/4.0',
-        'Focus on Distributed Systems and Machine Learning',
-        'Graduate Research Assistant in Database Systems Lab',
-        'Teaching Assistant for Data Structures and Algorithms'
-      ],
-      courses: ['Distributed Systems', 'Machine Learning', 'Advanced Algorithms', 'Cloud Computing', 'Database Systems']
-    },
-    {
-      degree: 'Bachelor of Science in Computer Science',
-      school: 'University Name',
-      location: 'City, Country',
-      period: '2017 - 2021',
-      details: [
-        'GPA: 3.8/4.0',
-        'Graduated with Honors',
-        'Dean\'s List all semesters'
-      ],
-      courses: ['Data Structures', 'Algorithms', 'Operating Systems', 'Computer Networks', 'Software Engineering']
-    }
-  ];
+  
 
   return (
     <section id="skills" className="min-h-screen py-20 relative bg-white">

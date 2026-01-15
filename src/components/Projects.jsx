@@ -52,9 +52,15 @@ const ProjectCard = ({ project, index }) => {
           </div>
         </div>
 
-        <h3 className="text-xl font-bold text-slate-800 mb-3">
+        <h3 className="text-xl font-bold text-slate-800 mb-2">
           {project.title}
         </h3>
+        
+        {project.period && (
+          <p className="text-sm text-slate-500 mb-3">
+            {project.period}
+          </p>
+        )}
         
         <p className="text-slate-600 mb-4 flex-grow">
           {project.description}
@@ -78,43 +84,32 @@ const ProjectCard = ({ project, index }) => {
 const Projects = () => {
   const projects = [
     {
-      title: 'Real-time Analytics Dashboard',
-      description: 'Built a comprehensive analytics platform processing millions of events per day with real-time visualizations and anomaly detection.',
-      technologies: ['React', 'Python', 'Apache Kafka', 'Redis', 'PostgreSQL', 'Docker'],
-      github: 'https://github.com/yourusername/analytics-dashboard',
-      demo: 'https://demo.example.com'
+      title: 'Comparative Machine Unlearning Analysis on CNNs',
+      period: 'Sep 2025 - Dec 2025',
+      description: 'Evaluated machine unlearning efficacy across VGG-16 and ResNet-18 by implementing Gradient Ascent and SalUn on CIFAR-10, establishing empirical benchmarks for model selection in GDPR and privacy-sensitive applications.',
+      technologies: ['Machine Unlearning', 'PyTorch', 'VGG-16', 'ResNet-18', 'SalUn'],
+      github: 'https://github.com/ryusudol/Model-Structure-Impact-on-Unlearning'
     },
     {
-      title: 'Distributed Task Scheduler',
-      description: 'Developed a fault-tolerant distributed system for scheduling and executing batch jobs across multiple nodes with automatic failover.',
-      technologies: ['Java', 'Apache ZooKeeper', 'Spring Boot', 'MongoDB'],
-      github: 'https://github.com/yourusername/task-scheduler'
+      title: 'Intelligent Tutoring System with Multi-Agent LLM',
+      period: 'Feb 2024 - Jun 2024',
+      description: 'Developed a multi-agent tutoring system with CrewAI, integrating RAG and Chroma DB for evidence-based answers. Benchmarked LLaMA-3 and GPT-4o, and optimized the retrieval system with GPT-4o and OpenAI embeddings to improve semantic stability and cut redundant API calls by 20%.',
+      technologies: ['Multi-Agent LLM', 'RAG', 'CrewAI', 'LangChain', 'Chroma DB'],
+      github: 'https://github.com/yuhansun33/capstone_final_project_crewai'
     },
     {
-      title: 'ML-Powered Recommendation Engine',
-      description: 'Designed and deployed a collaborative filtering recommendation system serving personalized content to 100K+ users.',
-      technologies: ['Python', 'TensorFlow', 'FastAPI', 'AWS SageMaker', 'DynamoDB'],
-      github: 'https://github.com/yourusername/recommendation-engine',
-      demo: 'https://demo.example.com'
+      title: 'Full-Stack Blockchain Supply Chain Application',
+      period: 'Feb 2023 - Mar 2024',
+      description: 'Engineered a full-stack supply chain tracking platform, developing a React frontend for real-time interaction with smart contracts via Web3.js, and an Express.js backend with MySQL for secure user authentication. Deployed smart contracts on a simulated blockchain network using Truffle and Ganache.',
+      technologies: ['React', 'Web3.js', 'Express.js', 'MySQL', 'Truffle', 'Ganache'],
+      github: 'https://github.com/yuhansun33/Blockchain_Application_in_Supply_Chain'
     },
     {
-      title: 'Cloud Infrastructure Automation',
-      description: 'Created IaC templates and CI/CD pipelines to automate deployment of microservices architecture on AWS.',
-      technologies: ['Terraform', 'Kubernetes', 'AWS', 'GitHub Actions', 'Prometheus'],
-      github: 'https://github.com/yourusername/cloud-automation'
-    },
-    {
-      title: 'Natural Language Query Interface',
-      description: 'Built an NLP-based query interface allowing users to interact with databases using natural language instead of SQL.',
-      technologies: ['Python', 'spaCy', 'OpenAI API', 'React', 'Node.js'],
-      github: 'https://github.com/yourusername/nl-query',
-      demo: 'https://demo.example.com'
-    },
-    {
-      title: 'Blockchain Supply Chain Tracker',
-      description: 'Developed a decentralized application for tracking products through supply chain using smart contracts.',
-      technologies: ['Solidity', 'Ethereum', 'Web3.js', 'React', 'IPFS'],
-      github: 'https://github.com/yourusername/supply-chain'
+      title: 'Stock Price Prediction using Sentiment Analysis',
+      period: 'Feb 2024 - Jun 2024',
+      description: 'Improved stock price prediction accuracy, reducing RMSE by 9% and MAE by 13%, by developing a hybrid LSTM model that incorporated NLP features from BERT sentiment and LDA topic modeling.',
+      technologies: ['PyTorch', 'BERT', 'LSTM', 'NLP', 'LDA', 'Sentiment Analysis'],
+      github: 'https://github.com/77ivy/Final_IntroAI'
     }
   ];
 
