@@ -58,7 +58,7 @@ const Header = () => {
                 animate={{ opacity: 1 }}
                 className="text-xl sm:text-2xl font-bold text-gradient cursor-pointer"
               >
-                Portfolio
+                Kerstin Sun
               </motion.div>
             </Link>
 

@@ -66,21 +66,158 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* Right side - 3D Scene Placeholder */}
+          {/* Right side - Animated Data Visualization */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="relative h-[500px] rounded-2xl overflow-hidden"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-cyan-100 border-2 border-blue-200 rounded-2xl flex items-center justify-center">
-              <div className="text-center space-y-4">
-                <div className="w-48 h-48 mx-auto bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full shadow-2xl" />
-                <p className="text-slate-600 text-sm mt-8">
-                  3D Scene Placeholder<br />
-                  <span className="text-xs">Add your Spline or Three.js scene here</span>
-                </p>
+            {/* Background with gradient */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 rounded-2xl">
+              
+              {/* Computer Card */}
+              <motion.div
+                animate={{ 
+                  y: [0, -20, 0],
+                  rotate: [0, 5, 0]
+                }}
+                transition={{ 
+                  duration: 6, 
+                  repeat: Infinity, 
+                  ease: "easeInOut" 
+                }}
+                className="absolute top-12 left-12 bg-white p-4 rounded-lg shadow-lg border border-blue-200 w-36"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  <div className="text-xs font-semibold text-slate-700">Full-Stack</div>
+                </div>
+                <div className="text-sm text-slate-500">Building scalable solutions</div>
+              </motion.div>
+
+              {/* Amazon Card */}
+              <motion.div
+                animate={{ 
+                  y: [0, 20, 0],
+                  rotate: [0, -5, 0]
+                }}
+                transition={{ 
+                  duration: 7, 
+                  repeat: Infinity, 
+                  ease: "easeInOut",
+                  delay: 1
+                }}
+                className="absolute top-32 right-16 bg-gradient-to-br from-orange-50 to-white p-4 rounded-lg shadow-lg border-2 border-orange-300 w-36"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="text-xs font-bold text-slate-700">Ex-Amazon</div>
+                  {/* Amazon smile arrow */}
+                  <svg className="w-8 h-8 text-orange-500" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M14.5 17.5c-1.5 1.5-4 1.5-5.5 0m12 0c-2-2-5-3-9-3s-7 1-9 3" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+                    <path d="M20 16l2 2-2 1" fill="currentColor"/>
+                  </svg>
+                </div>
+                <div className="text-lg font-bold text-orange-600">Data Analyst</div>
+              </motion.div>
+
+              {/* Innovation Card */}
+              <motion.div
+                animate={{ 
+                  y: [0, -15, 0],
+                  x: [0, 10, 0]
+                }}
+                transition={{ 
+                  duration: 5, 
+                  repeat: Infinity, 
+                  ease: "easeInOut",
+                  delay: 2
+                }}
+                className="absolute bottom-24 left-16 bg-white p-4 rounded-lg shadow-lg border border-purple-200 w-32"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <svg className="w-7 h-7 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                    <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                    <path d="M9 2h6l-1.5 5h-3L9 2z"/>
+                  </svg>
+                  <div className="text-xs font-bold text-slate-700">Innovation</div>
+                </div>
+                <div className="text-xs text-slate-500">ML & AI Solutions</div>
+              </motion.div>
+
+              {/* Leadership Card */}
+              <motion.div
+                animate={{ 
+                  y: [0, 15, 0],
+                  rotate: [0, -3, 0]
+                }}
+                transition={{ 
+                  duration: 6.5, 
+                  repeat: Infinity, 
+                  ease: "easeInOut",
+                  delay: 0.5
+                }}
+                className="absolute bottom-32 right-20 bg-white p-4 rounded-lg shadow-lg border border-cyan-200 w-32"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <svg className="w-6 h-6 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  <div className="text-xs font-bold text-slate-700">Leadership</div>
+                </div>
+                <div className="text-xs text-slate-500">Team & Impact</div>
+              </motion.div>
+
+              {/* Central geometric design */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  className="relative w-48 h-48"
+                >
+                  {/* Outer ring */}
+                  <div className="absolute inset-0 border-4 border-blue-300 rounded-full opacity-30" />
+                  
+                  {/* Middle ring */}
+                  <motion.div
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                    className="absolute inset-6 border-4 border-cyan-300 rounded-full opacity-40"
+                  />
+                  
+                  {/* Inner circle with data chart icon */}
+                  <div className="absolute inset-12 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-full flex items-center justify-center shadow-2xl">
+                    <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                  </div>
+                </motion.div>
               </div>
+
+              {/* Floating particles */}
+              {[...Array(8)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  animate={{ 
+                    y: [0, -30, 0],
+                    opacity: [0.2, 0.8, 0.2]
+                  }}
+                  transition={{ 
+                    duration: 3 + i * 0.5, 
+                    repeat: Infinity, 
+                    ease: "easeInOut",
+                    delay: i * 0.3
+                  }}
+                  className="absolute w-2 h-2 bg-blue-400 rounded-full"
+                  style={{ 
+                    left: `${15 + i * 10}%`, 
+                    top: `${20 + (i % 3) * 20}%` 
+                  }}
+                />
+              ))}
             </div>
           </motion.div>
         </div>
