@@ -15,13 +15,8 @@
     
     <title>Kerstin Sun's Portfolio</title>
     
-    <!-- Fallback for older browsers -->
-    <script>
-      // Check if browser supports modern features
-      if (!window.Promise || !window.fetch || !window.Symbol) {
-        document.write('<script src="https://polyfill.io/v3/polyfill.min.js?features=Promise%2Cfetch%2CSymbol%2CObject.assign%2CArray.from"><\/script>');
-      }
-    </script>
+    <!-- Load polyfills for Safari and older browsers -->
+    <script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?features=Promise%2Cfetch%2CSymbol%2CObject.assign%2CArray.from%2CArray.prototype.includes%2CString.prototype.includes%2CObject.entries%2CObject.values"></script>
   </head>
   <body>
     <noscript>

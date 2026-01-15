@@ -11,12 +11,17 @@ export default defineConfig({
   })],
   base: '/Portfolio/',
   build: {
-    // Target modern browsers for better compatibility
-    target: ['es2020', 'edge88', 'firefox78', 'chrome87', 'safari14'],
+    // Target modern browsers with extra Safari compatibility
+    target: ['es2015', 'safari12'],
     // Enable polyfills for older browsers
     cssCodeSplit: true,
     sourcemap: false,
     minify: 'esbuild', // Use esbuild for faster builds
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
   },
   server: {
     watch: {
