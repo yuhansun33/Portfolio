@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { smoothScrollTo } from '../utils/smoothScroll';
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -18,7 +19,9 @@ const Header = () => {
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
-    element?.scrollIntoView({ behavior: 'smooth' });
+    if (element) {
+      smoothScrollTo(element);
+    }
     setMobileMenuOpen(false);
   };
 
@@ -28,7 +31,9 @@ const Header = () => {
       navigate(path);
       setTimeout(() => {
         const element = document.getElementById(sectionId);
-        element?.scrollIntoView({ behavior: 'smooth' });
+        if (element) {
+          smoothScrollTo(element);
+        }
       }, 100);
     } else {
       scrollToSection(sectionId);

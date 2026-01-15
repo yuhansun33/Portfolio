@@ -5,9 +5,31 @@
     <link rel="icon" type="image/png" href="/owl.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     <meta name="theme-color" content="#3b82f6" />
+    
+    <!-- Browser compatibility -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- Preconnect to improve performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
     <title>Kerstin Sun's Portfolio</title>
+    
+    <!-- Fallback for older browsers -->
+    <script>
+      // Check if browser supports modern features
+      if (!window.Promise || !window.fetch || !window.Symbol) {
+        document.write('<script src="https://polyfill.io/v3/polyfill.min.js?features=Promise%2Cfetch%2CSymbol%2CObject.assign%2CArray.from"><\/script>');
+      }
+    </script>
   </head>
   <body>
+    <noscript>
+      <div style="text-align: center; padding: 50px;">
+        <h1>JavaScript Required</h1>
+        <p>This website requires JavaScript to be enabled. Please enable JavaScript in your browser settings.</p>
+      </div>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

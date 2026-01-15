@@ -1,9 +1,12 @@
 import { motion } from 'framer-motion';
+import { smoothScrollTo } from '../utils/smoothScroll';
 
 const Hero = () => {
   const scrollToNext = () => {
     const element = document.getElementById('experience');
-    element?.scrollIntoView({ behavior: 'smooth' });
+    if (element) {
+      smoothScrollTo(element);
+    }
   };
 
   return (

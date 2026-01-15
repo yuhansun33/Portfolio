@@ -57,14 +57,20 @@ body {
 .glass {
   background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  -moz-backdrop-filter: blur(12px);
   border: 1px solid rgba(148, 163, 184, 0.2);
 }
 
 .text-gradient {
   background-clip: text;
   -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
   color: transparent;
   background-image: linear-gradient(to right, #3b82f6, #06b6d4);
+  background-image: -webkit-linear-gradient(left, #3b82f6, #06b6d4);
+  background-image: -moz-linear-gradient(left, #3b82f6, #06b6d4);
 }
 
 /* Mobile Optimization */
