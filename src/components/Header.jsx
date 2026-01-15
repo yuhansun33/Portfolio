@@ -36,7 +36,9 @@ const Header = () => {
   };
 
   const handlePreview = (fileName) => {
-    window.open(`/docs/${fileName}`, '_blank');
+    // Use relative path for GitHub Pages compatibility
+    const basePath = import.meta.env.BASE_URL || '/';
+    window.open(`${basePath}docs/${fileName}`, '_blank');
     setMobileMenuOpen(false);
   };
 

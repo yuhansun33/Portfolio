@@ -1,23 +1,29 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import Home from './pages/Home';
-import ProjectsSkills from './pages/ProjectsSkills';
+import Loading from './components/Loading';
 import './App.css';
+
+// Lazy load pages for better performance
+const Home = lazy(() => import('./pages/Home'));
+const ProjectsSkills = lazy(() => import('./pages/ProjectsSkills'));
 
 function App() {
   return (
     <Router>
-      <div className="relative min-h-screen bg-slate-50 text-slate-900 overflow-x-hidden">
+      <div className="flex flex-col min-h-screen bg-slate-50 text-slate-900 overflow-x-hidden">
         <Header />
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/projects-skills" element={<ProjectsSkills />} />
-          </Routes>
+        <main className="flex-1">
+          <Suspense fallback={<Loading />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/projects-skills" element={<ProjectsSkills />} />
+            </Routes>
+          </Suspense>
         </main>
         
         {/* Footer */}
-        <footer className="relative py-6 border-t border-slate-200 bg-white">
+        <footer className="relative py-6 border-t border-slate-200 bg-white mt-auto">
           <div className="container mx-auto px-6">
             <div className="flex flex-col md:flex-row items-center justify-between gap-3">
               <div className="text-center md:text-left">

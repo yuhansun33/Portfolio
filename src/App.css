@@ -3,6 +3,35 @@
   margin: 0;
   padding: 0;
   width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure main content takes up available space and prevents footer overlap */
+main {
+  min-height: 600px;
+  flex: 1 0 auto;
+  width: 100%;
+}
+
+/* Ensure footer stays at bottom */
+footer {
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
+/* Prevent layout shifts during loading */
+.container {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Mobile-specific fixes */
+@media (max-width: 768px) {
+  main {
+    min-height: 500px;
+  }
 }
 
 /* Custom scrollbar */
