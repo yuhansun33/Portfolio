@@ -90,15 +90,15 @@ const Hero = () => {
                   repeat: Infinity, 
                   ease: "easeInOut" 
                 }}
-                className="absolute top-12 left-12 bg-white p-4 rounded-lg shadow-lg border border-blue-200 w-36"
+                className="absolute top-12 left-12 bg-white p-4 rounded-lg shadow-lg border-2 border-blue-300 w-40"
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <svg className="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  <svg className="w-7 h-7 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                   </svg>
-                  <div className="text-xs font-semibold text-slate-700">Full-Stack</div>
+                  <div className="text-xs font-bold text-slate-700">Data Science</div>
                 </div>
-                <div className="text-sm text-slate-500">Building scalable solutions</div>
+                <div className="text-sm text-slate-500">Building large-scale solutions</div>
               </motion.div>
 
               {/* Amazon Card */}
@@ -113,17 +113,16 @@ const Hero = () => {
                   ease: "easeInOut",
                   delay: 1
                 }}
-                className="absolute top-32 right-16 bg-gradient-to-br from-orange-50 to-white p-4 rounded-lg shadow-lg border-2 border-orange-300 w-36"
+                className="absolute top-32 right-12 bg-gradient-to-br from-orange-100 to-white p-4 rounded-lg shadow-xl border-2 border-orange-400 w-40"
               >
-                <div className="flex items-center justify-between mb-2">
-                  <div className="text-xs font-bold text-slate-700">Ex-Amazon</div>
-                  {/* Amazon smile arrow */}
-                  <svg className="w-8 h-8 text-orange-500" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M14.5 17.5c-1.5 1.5-4 1.5-5.5 0m12 0c-2-2-5-3-9-3s-7 1-9 3" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-                    <path d="M20 16l2 2-2 1" fill="currentColor"/>
+                <div className="flex items-center gap-2 mb-2">
+                  {/* Package/Box Icon for Amazon */}
+                  <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                   </svg>
+                  <div className="text-sm font-bold text-slate-800">Ex-Amazon</div>
                 </div>
-                <div className="text-lg font-bold text-orange-600">Data Analyst</div>
+                <div className="text-sm font-semibold text-orange-700">Data Analyst</div>
               </motion.div>
 
               {/* Innovation Card */}
@@ -138,40 +137,63 @@ const Hero = () => {
                   ease: "easeInOut",
                   delay: 2
                 }}
-                className="absolute bottom-24 left-16 bg-white p-4 rounded-lg shadow-lg border border-purple-200 w-32"
+                className="absolute bottom-28 left-16 bg-gradient-to-br from-orange-50 to-white p-4 rounded-lg shadow-lg border-2 border-orange-300 w-36"
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <svg className="w-7 h-7 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
-                    <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                    <path d="M9 2h6l-1.5 5h-3L9 2z"/>
+                  {/* Brain/AI Icon */}
+                  <svg className="w-7 h-7 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                   </svg>
                   <div className="text-xs font-bold text-slate-700">Innovation</div>
                 </div>
-                <div className="text-xs text-slate-500">ML & AI Solutions</div>
+                <div className="text-xs text-slate-500">AI & ML</div>
               </motion.div>
 
-              {/* Leadership Card */}
+
+              {/* Cloud/AWS Card */}
               <motion.div
                 animate={{ 
-                  y: [0, 15, 0],
+                  y: [0, 12, 0],
                   rotate: [0, -3, 0]
                 }}
                 transition={{ 
                   duration: 6.5, 
                   repeat: Infinity, 
                   ease: "easeInOut",
-                  delay: 0.5
+                  delay: 1.5
                 }}
-                className="absolute bottom-32 right-20 bg-white p-4 rounded-lg shadow-lg border border-cyan-200 w-32"
+                className="absolute bottom-32 right-16 bg-gradient-to-br from-cyan-50 to-white p-4 rounded-lg shadow-lg border-2 border-cyan-300 w-36"
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <svg className="w-6 h-6 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  <svg className="w-7 h-7 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
                   </svg>
-                  <div className="text-xs font-bold text-slate-700">Leadership</div>
+                  <div className="text-xs font-bold text-slate-700">Cloud</div>
                 </div>
-                <div className="text-xs text-slate-500">Team & Impact</div>
+                <div className="text-xs text-slate-500">AWS & GCP</div>
+              </motion.div>
+
+              {/* ETL/Pipeline Card */}
+              <motion.div
+                animate={{ 
+                  y: [0, -12, 0],
+                  x: [0, -8, 0]
+                }}
+                transition={{ 
+                  duration: 5.5, 
+                  repeat: Infinity, 
+                  ease: "easeInOut",
+                  delay: 3
+                }}
+                className="absolute top-8 right-8 bg-white p-3 rounded-lg shadow-lg border-2 border-orange-200 w-32"
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <svg className="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                  </svg>
+                  <div className="text-xs font-bold text-slate-700">ETL</div>
+                </div>
+                <div className="text-xs text-slate-500">Data Pipeline</div>
               </motion.div>
 
               {/* Central geometric design */}
