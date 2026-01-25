@@ -93,8 +93,12 @@ const Skills = () => {
       skills: ['Python', 'SQL', 'C/C++', 'JavaScript', 'React', 'Node.js', 'PyTorch', 'TensorFlow', 'Pandas']
     },
     {
-      name: 'Data & Machine Learning',
-      skills: ['Spark', 'Hadoop', 'ETL', 'NLP', 'Statistical Modeling', 'PostgreSQL', 'MongoDB']
+      name: 'Data Science',
+      skills: ['Machine Learning', 'Deep Learning', 'NLP', 'Statistical Modeling', 'PostgreSQL', 'MongoDB']
+    },
+    {
+      name: 'Data Engineering',
+      skills: ['Spark', 'Hadoop', 'Kafka', 'BigQuery', 'ETL', 'Schema Design']
     },
     {
       name: 'Cloud & Platforms',

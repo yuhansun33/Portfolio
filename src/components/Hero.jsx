@@ -10,7 +10,7 @@ const Hero = () => {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-white to-cyan-50 pt-20">
+    <section id="hero" className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-white to-cyan-50 pt-20 pb-12">
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left side - Text content */}
@@ -74,7 +74,7 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="relative h-[500px] rounded-2xl overflow-hidden"
+            className="relative h-[400px] rounded-2xl overflow-hidden"
           >
             {/* Background with gradient */}
             <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 rounded-2xl">

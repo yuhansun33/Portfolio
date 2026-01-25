@@ -9,8 +9,8 @@ const ProjectsSkills = () => {
 
   return (
     <div className="pt-20">
-      <Projects />
       <Skills />
+      <Projects />
     </div>
   );
 };
