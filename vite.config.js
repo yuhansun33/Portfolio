@@ -9,7 +9,7 @@ export default defineConfig({
     // Use automatic JSX runtime
     jsxRuntime: 'automatic',
   })],
-  base: '/Portfolio/',
+  base: '/',
   build: {
     // Target modern browsers with extra Safari compatibility
     target: ['es2015', 'safari12'],
