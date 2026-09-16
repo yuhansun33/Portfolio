@@ -117,17 +117,28 @@ const EducationCard = ({ item, index }) => {
 const Experience = () => {
   const experiences = [
     {
+      title: 'AI Engineer Intern',
+      company: 'NVIDIA',
+      location: 'Santa Clara, CA',
+      period: 'May 2026 - Jul 2026',
+      highlights: [
+        'Full-Stack AI Platform: Built and shipped a production application that reduced semiconductor BOM creation time from 16 hours to 15 minutes, enabling self-serve for operations and ATG engineers.',
+        'Agentic Execution Workflow: Engineered a tool-calling AI agent that decomposes natural-language requests into dependency-ordered execution flows across 10 backend tools, gating writes behind human confirmation.',
+        'Deterministic Correctness Layer: Designed a backend engine that offloads part-identifier generation from the LLM to guarantee zero-hallucination accuracy across 13+ chip-assembly process types, with 90%+ unit test coverage.'
+      ],
+      technologies: ['Python', 'FastAPI', 'LLM Agents', 'Tool Calling', 'NeMo Agent Toolkit', 'React', 'PostgreSQL']
+    },
+    {
       title: 'Data Analyst',
       company: 'Amazon',
       location: 'Taipei, Taiwan',
       period: 'Jul 2024 - Jul 2025',
       highlights: [
-        'ML Efficiency: Accelerated new seller onboarding by 60% using K-Means clustering segmentation model.',
-        'ETL Automation: Architected automated data pipelines with Python and SQLite, slashing manual reporting time by 40%.',
-        'Data-Driven Strategy: Led 5 teams to launch a GTM strategy, driving 3,000+ unique clicks for 100+ sellers during Prime Day.',
-        'Marketing Analytics: Optimized ad spend by 13% through 30+ data-driven consultations and performance frameworks.'
+        'Segmentation Model: Cut new seller launch time from 142 to 60 days with a K-Means segmentation model that prioritized high-potential onboarding targets, validating profile separation with ANOVA before rollout.',
+        'ETL Pipeline: Designed a modular Python/SQL pipeline consolidating multi-source seller data and remodeled the reporting layer, cutting report latency 40% for 5 stakeholder teams.',
+        'Marketing Analytics: Built a marketing analytics framework, delivering 30+ data-driven seller consultations that contributed to a 13% increase in ad spend and improved campaign ROAS.'
       ],
-      technologies: ['Python', 'SQL', 'Machine Learning', 'K-Means Clustering', 'ETL', 'SQLite', 'Data Analysis', 'Leadership']
+      technologies: ['Python', 'SQL', 'K-Means Clustering', 'ETL', 'ANOVA', 'Data Analysis']
     },
     {
       title: 'Data Engineer Intern',
@@ -135,17 +146,16 @@ const Experience = () => {
       location: 'Hsinchu, Taiwan',
       period: 'Jun 2023 - Nov 2023',
       highlights: [
-        'Enterprise Data Integration: Integrated SAP system data into dashboards, enhancing visibility for 50+ stakeholders.',
-        'Intelligent Automation: Developed Robotic Process Automation (RPA) solutions that reduced routine workloads by 7%.',
-        'Production Optimization: Scripted VBA automation tools for packaging analysis, increasing production efficiency by 10%.'
+        'Data Integration: Built an SAP ERP ingestion pipeline with automated validation checks feeding cross-department production dashboards for 50+ stakeholders.',
+        'Process Automation: Automated manual packaging workflows to raise line throughput 10%.'
       ],
-      technologies: ['Python', 'SQL', 'SAP', 'RPA', 'VBA', 'Data Pipeline', 'Automation', 'Dashboard Development']
+      technologies: ['Python', 'SQL', 'SAP', 'Data Pipeline', 'Automation', 'Dashboard Development']
     }
   ];
 
   const education = [
     {
-      degree: 'MS of Computer Science',
+      degree: 'M.C.S., Computer Science',
       school: 'Rice University',
       location: 'Houston, Texas, USA',
       period: 'Aug 2025 - Dec 2026',
@@ -153,8 +163,8 @@ const Experience = () => {
       technologies: ['Distributed Systems', 'Machine Learning', 'Web Development', 'Cloud Computing', 'Algorithms']
     },
     {
-      degree: 'BSc in Industrial Engineering',
-      school: 'National Chiao Tung University',
+      degree: 'B.S. in Industrial Engineering',
+      school: 'National Yang Ming Chiao Tung University',
       location: 'Hsinchu, Taiwan',
       period: 'Sep 2020 - Jun 2024',
       gpa: '3.97/4.0',

@@ -89,16 +89,20 @@ const EducationCard = ({ education, index }) => {
 const Skills = () => {
   const skillCategories = [
     {
-      name: 'Languages & Frameworks',
-      skills: ['Python', 'SQL', 'C/C++', 'JavaScript', 'React', 'Node.js', 'PyTorch', 'TensorFlow', 'Pandas']
+      name: 'Languages',
+      skills: ['Python', 'TypeScript/JavaScript', 'SQL', 'C/C++']
     },
     {
-      name: 'Data & Machine Learning',
-      skills: ['Spark', 'Hadoop', 'ETL', 'NLP', 'Statistical Modeling', 'PostgreSQL', 'MongoDB']
+      name: 'AI & ML',
+      skills: ['PyTorch', 'LLM Agents & Tool Calling', 'NeMo Agent Toolkit', 'RAG', 'Distillation', 'GNN', 'Reinforcement Learning']
     },
     {
-      name: 'Cloud & Platforms',
-      skills: ['AWS', 'GCP', 'Docker', 'Git', 'CI/CD']
+      name: 'Backend & Infra',
+      skills: ['FastAPI', 'React', 'REST API', 'Docker', 'Kubernetes', 'CI/CD', 'Git', 'PostgreSQL', 'MongoDB']
+    },
+    {
+      name: 'Data & Cloud',
+      skills: ['Kafka', 'Spark', 'ETL', 'BigQuery', 'Pandas', 'AWS (S3, EC2, EMR)', 'GCP']
     }
   ];
 

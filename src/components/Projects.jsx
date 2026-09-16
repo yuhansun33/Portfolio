@@ -83,11 +83,22 @@ const ProjectCard = ({ project, index }) => {
 const Projects = () => {
   const projects = [
     {
-      title: 'Comparative Machine Unlearning Analysis on CNNs',
-      period: 'Sep 2025 - Dec 2025',
-      description: 'Evaluated machine unlearning efficacy across VGG-16 and ResNet-18 by implementing Gradient Ascent and SalUn on CIFAR-10, establishing empirical benchmarks for model selection in GDPR and privacy-sensitive applications.',
-      technologies: ['Machine Unlearning', 'PyTorch', 'VGG-16', 'ResNet-18', 'SalUn'],
-      github: 'https://github.com/ryusudol/Model-Structure-Impact-on-Unlearning'
+      title: 'Prompt-Aware Image-Token Pruning for Multimodal Inference',
+      period: 'Jan - May 2026',
+      description: "Distilled LLaVA-1.5-7B's attention into a 1.3M-parameter scorer that prunes image tokens before the projector, running 150x faster than a GradCAM scorer and cutting attention compute 10x. Matched full-model accuracy on TextVQA at 25% token retention, 12.3 points above random pruning, deciding token relevance in 0.43ms per image.",
+      technologies: ['PyTorch', 'LLaVA', 'CLIP ViT', 'Distillation', 'Token Pruning']
+    },
+    {
+      title: 'Zero-Shot Job Shop Scheduling with Degree-Normalized GNNs',
+      period: 'Jan - May 2026',
+      description: 'Found why a scheduling model trained on 10-machine layouts collapsed on 15-machine ones: summing neighbor signals let internal strength balloon with scale. Averaging instead cut cross-size error from 69.8% to 22.3% and training time 3x.',
+      technologies: ['PyTorch', 'GNN', 'Reinforcement Learning']
+    },
+    {
+      title: 'Global Content Trending Analysis Platform',
+      period: 'Dec 2025 - Jan 2026',
+      description: 'Built a cross-cloud streaming pipeline over 150K+ daily events, watermarking stateful aggregations for out-of-order arrival and partitioning/clustering BigQuery tables to cut scan cost; deployed with Docker and GitHub Actions.',
+      technologies: ['Kafka', 'PySpark', 'BigQuery', 'AWS EC2', 'Docker']
     },
     {
       title: 'Intelligent Tutoring System with Multi-Agent LLM',
@@ -95,6 +106,16 @@ const Projects = () => {
       description: 'Developed a multi-agent tutoring system with CrewAI, integrating RAG and Chroma DB for evidence-based answers. Benchmarked LLaMA-3 and GPT-4o, and optimized the retrieval system with GPT-4o and OpenAI embeddings to improve semantic stability and cut redundant API calls by 20%.',
       technologies: ['Multi-Agent LLM', 'RAG', 'CrewAI', 'LangChain', 'Chroma DB'],
       github: 'https://github.com/yuhansun33/capstone_final_project_crewai'
+    }
+  ];
+
+  const archivedProjects = [
+    {
+      title: 'Comparative Machine Unlearning Analysis on CNNs',
+      period: 'Sep 2025 - Dec 2025',
+      description: 'Evaluated machine unlearning efficacy across VGG-16 and ResNet-18 by implementing Gradient Ascent and SalUn on CIFAR-10, establishing empirical benchmarks for model selection in GDPR and privacy-sensitive applications.',
+      technologies: ['Machine Unlearning', 'PyTorch', 'VGG-16', 'ResNet-18', 'SalUn'],
+      github: 'https://github.com/ryusudol/Model-Structure-Impact-on-Unlearning'
     },
     {
       title: 'Full-Stack Blockchain Supply Chain Application',
@@ -114,7 +135,7 @@ const Projects = () => {
 
   return (
     <section id="projects" className="min-h-screen py-20 relative bg-gradient-to-b from-white to-blue-50">
-      
+
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0 }}
@@ -129,6 +150,21 @@ const Projects = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
           {projects.map((project, index) => (
+            <ProjectCard key={index} project={project} index={index} />
+          ))}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-center mt-20 mb-10"
+        >
+          <h3 className="text-2xl md:text-3xl font-bold text-slate-700">Earlier Projects</h3>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto opacity-90">
+          {archivedProjects.map((project, index) => (
             <ProjectCard key={index} project={project} index={index} />
           ))}
         </div>
