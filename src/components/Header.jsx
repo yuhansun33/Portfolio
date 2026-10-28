@@ -28,24 +28,15 @@ const Header = () => {
   const handleNavigation = (path, sectionId) => {
     setMobileMenuOpen(false);
     if (location.pathname !== path) {
-      navigate(path);
-      setTimeout(() => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          smoothScrollTo(element);
-        }
-      }, 100);
+      // Home scrolls to the section once it has mounted (see pages/Home.jsx)
+      navigate(path, { state: { scrollTo: sectionId } });
     } else {
       scrollToSection(sectionId);
     }
   };
 
-  const handlePreview = (fileName) => {
-    // Use relative path for GitHub Pages compatibility
-    const basePath = import.meta.env.BASE_URL || '/';
-    window.open(`${basePath}docs/${fileName}`, '_blank');
-    setMobileMenuOpen(false);
-  };
+  const docUrl = (fileName) => `${import.meta.env.BASE_URL}docs/${encodeURIComponent(fileName)}`;
+  const resumeUrl = docUrl('Resume_Kerstin(YuHan)Sun.pdf');
 
   return (
     <>
@@ -94,22 +85,16 @@ const Header = () => {
 
             {/* Desktop Buttons */}
             <div className="hidden md:flex items-center space-x-3">
-              <motion.button
+              <motion.a
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => handlePreview('Resume_Kerstin(YuHan)Sun.pdf')}
+                href={resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-4 py-1.5 text-sm bg-gradient-to-r from-blue-500 to-cyan-500 rounded-md font-medium text-white hover:from-blue-600 hover:to-cyan-600 shadow-md hover:shadow-lg transition-all"
               >
                 Resume
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => handlePreview('Unofficial Academic Transcript.pdf')}
-                className="px-4 py-1.5 text-sm border-2 border-slate-200 rounded-md font-medium text-slate-600 hover:border-blue-300 hover:bg-blue-50 transition-all"
-              >
-                Transcript
-              </motion.button>
+              </motion.a>
             </div>
 
             {/* Mobile Hamburger Menu Button */}
@@ -177,18 +162,15 @@ const Header = () => {
               </Link>
               
               <div className="pt-2 border-t border-slate-200 flex flex-col space-y-2">
-                <button
-                  onClick={() => handlePreview('Resume_Kerstin(YuHan)Sun.pdf')}
-                  className="px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg font-medium text-white shadow-md"
+                <a
+                  href={resumeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="px-4 py-2 text-center bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg font-medium text-white shadow-md"
                 >
                   Resume
-                </button>
-                <button
-                  onClick={() => handlePreview('Unofficial Academic Transcript.pdf')}
-                  className="px-4 py-2 border-2 border-slate-200 rounded-lg font-medium text-slate-600 hover:border-blue-300 hover:bg-blue-50 transition-all"
-                >
-                  Transcript
-                </button>
+                </a>
               </div>
             </nav>
           </motion.div>

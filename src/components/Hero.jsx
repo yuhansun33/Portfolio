@@ -1,14 +1,6 @@
 import { motion } from 'framer-motion';
-import { smoothScrollTo } from '../utils/smoothScroll';
 
 const Hero = () => {
-  const scrollToNext = () => {
-    const element = document.getElementById('experience');
-    if (element) {
-      smoothScrollTo(element);
-    }
-  };
-
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-white to-cyan-50 pt-20">
       <div className="container mx-auto px-6 relative z-10">
@@ -25,11 +17,11 @@ const Hero = () => {
             </h1>
 
             <div className="text-xl md:text-2xl text-slate-600 font-medium">
-              AI Engineer Intern @ NVIDIA | MCS Student @ Rice University
+              MCS Student @ Rice University | Former AI Engineer Intern @ NVIDIA
             </div>
 
             <p className="text-base text-slate-500 leading-relaxed max-w-2xl">
-              AI Engineer Intern at NVIDIA and former Data Analyst at Amazon, specializing in
+              Former AI Engineer Intern at NVIDIA and Data Analyst at Amazon, specializing in
               agentic AI systems and full-stack engineering. Delivered an end-to-end automation
               platform that cut operational cycle time by 98% with agentic AI workflows and
               backend design. Currently pursuing an M.C.S. at Rice University.

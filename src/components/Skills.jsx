@@ -20,68 +20,14 @@ const SkillCategory = ({ category, index }) => {
       </h3>
       <div className="flex flex-wrap gap-3">
         {category.skills.map((skill, i) => (
-          <motion.span
+          <span
             key={i}
-            initial={{ scale: 0 }}
-            animate={isInView ? { scale: 1 } : { scale: 0 }}
-            transition={{ duration: 0.3, delay: index * 0.1 + i * 0.05 }}
             className="px-4 py-2 bg-blue-50 border border-blue-200 rounded-lg text-sm font-medium text-blue-600 hover:border-blue-400 hover:bg-blue-100 transition-all cursor-default"
           >
             {skill}
-          </motion.span>
+          </span>
         ))}
       </div>
-    </motion.div>
-  );
-};
-
-const EducationCard = ({ education, index }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0 }}
-      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-      transition={{ duration: 0.6 }}
-      className="bg-white rounded-xl p-6 border-2 border-blue-100 hover:border-blue-300 hover:shadow-lg transition-all"
-    >
-      <div className="flex items-start justify-between mb-4">
-        <div className="flex-1">
-          <h3 className="text-2xl font-bold text-slate-800 mb-2">{education.degree}</h3>
-          <p className="text-lg text-blue-600 font-semibold mb-1">{education.school}</p>
-          <p className="text-slate-500 text-sm">{education.location}</p>
-        </div>
-        <span className="text-slate-500 text-sm whitespace-nowrap ml-4">{education.period}</span>
-      </div>
-      
-      {education.details && (
-        <ul className="space-y-2 mb-4">
-          {education.details.map((detail, i) => (
-            <li key={i} className="flex items-start text-slate-600 text-sm">
-              <span className="text-blue-400 mr-2 mt-1">▹</span>
-              <span>{detail}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      {education.courses && (
-        <div>
-          <p className="text-sm font-semibold text-slate-600 mb-2">Relevant Coursework:</p>
-          <div className="flex flex-wrap gap-2">
-            {education.courses.map((course, i) => (
-              <span
-                key={i}
-                className="px-3 py-1 bg-blue-50 border border-blue-200 rounded-full text-xs text-blue-600"
-              >
-                {course}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
     </motion.div>
   );
 };

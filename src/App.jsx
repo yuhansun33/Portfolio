@@ -1,4 +1,5 @@
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { MotionConfig } from 'framer-motion';
 import Header from './components/Header';
 import Home from './pages/Home';
 import ProjectsSkills from './pages/ProjectsSkills';
@@ -7,6 +8,8 @@ import './App.css';
 function App() {
   return (
     <Router>
+      {/* Respect the OS "reduce motion" setting: drops transform/looping animations */}
+      <MotionConfig reducedMotion="user">
       <div className="flex flex-col min-h-screen bg-slate-50 text-slate-900 overflow-x-hidden">
         <Header />
         <main className="flex-1">
@@ -62,6 +65,7 @@ function App() {
           </div>
         </footer>
       </div>
+      </MotionConfig>
     </Router>
   );
 }
