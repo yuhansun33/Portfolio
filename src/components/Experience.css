@@ -1,0 +1,262 @@
+.experience {
+  padding-top: 160px;
+}
+
+.experience-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+}
+
+.experience-head p {
+  max-width: 30ch;
+}
+
+/* ---------- timeline ---------- */
+.timeline-scroll {
+  margin-top: 56px;
+}
+
+.timeline {
+  position: relative;
+  padding: 26px 28px 18px;
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--ink) 4%, transparent);
+  box-shadow: inset 0 0 0 1px var(--glass-line);
+}
+
+.lane {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  align-items: center;
+  height: 40px;
+}
+
+.lane + .lane {
+  margin-top: 10px;
+}
+
+.lane b {
+  font-size: var(--t-small);
+  font-weight: 500;
+  color: var(--soft);
+}
+
+.lane-track {
+  position: relative;
+  height: 100%;
+}
+
+.bar {
+  position: absolute;
+  top: 4px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: var(--t-small);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s;
+}
+
+.bar.is-work {
+  background: color-mix(in srgb, var(--accent) 80%, transparent);
+  color: var(--bg);
+}
+
+.bar.is-edu {
+  background: color-mix(in srgb, var(--ink) 10%, transparent);
+}
+
+/* bars too short for their label put it just after the bar */
+.bar.is-narrow {
+  overflow: visible;
+  padding: 0;
+}
+
+.bar.is-narrow span {
+  position: absolute;
+  left: calc(100% + 8px);
+  color: var(--ink);
+}
+
+.bar.is-hot {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 3.5px var(--accent);
+}
+
+.axis {
+  position: relative;
+  height: 26px;
+  margin: 12px 0 0 96px;
+  border-top: 1px solid var(--faint);
+}
+
+.axis span {
+  position: absolute;
+  top: 8px;
+  transform: translateX(-50%);
+  font-size: var(--t-small);
+  color: var(--soft);
+}
+
+.now {
+  position: absolute;
+  top: -104px;
+  bottom: -6px;
+  border-left: 1.5px dashed var(--accent);
+  opacity: 0.75;
+}
+
+.now em {
+  position: absolute;
+  top: -20px;
+  left: -14px;
+  font-style: normal;
+  font-size: var(--t-small);
+  color: var(--accent);
+}
+
+/* ---------- role list ---------- */
+.roles {
+  margin-top: 40px;
+  padding: 0;
+  list-style: none;
+}
+
+.roles li {
+  display: grid;
+  grid-template-columns: 150px 1.25fr 1.5fr 150px;
+  gap: 32px;
+  align-items: center;
+  padding: 24px 0;
+  border-top: 1px solid var(--faint);
+  transition: background-color 0.3s;
+}
+
+.roles li:last-child {
+  border-bottom: 1px solid var(--faint);
+}
+
+.roles li.is-hot {
+  background: color-mix(in srgb, var(--ink) 3%, transparent);
+}
+
+.logo {
+  height: 60px;
+  padding: 0 14px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+  display: grid;
+  place-items: center;
+}
+
+.logo img {
+  max-width: 100%;
+  max-height: 36px;
+}
+
+.roles h3 {
+  font-size: var(--t-title);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.roles h3 small {
+  display: block;
+  margin-top: 3px;
+  font-size: var(--t-body);
+  font-weight: 400;
+  color: var(--soft);
+}
+
+.roles p {
+  color: var(--soft);
+}
+
+.dates {
+  text-align: right;
+  white-space: nowrap;
+  font-size: var(--t-small);
+  color: var(--soft);
+}
+
+@media (max-width: 1100px) {
+  .experience-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .roles li {
+    grid-template-columns: 120px 1fr;
+    gap: 10px 20px;
+    align-items: start;
+  }
+
+  .roles p {
+    grid-column: 2;
+  }
+
+  .dates {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    align-self: start;
+  }
+
+  .roles h3 {
+    grid-column: 2;
+    grid-row: 1;
+    padding-right: 110px;
+  }
+
+  .logo {
+    grid-row: 1 / span 2;
+    height: 52px;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 760px) {
+  .experience {
+    padding-top: 120px;
+  }
+
+  /* the timeline keeps its proportions and scrolls sideways */
+  .timeline-scroll {
+    margin: 40px calc(-1 * var(--gutter)) 0;
+    padding: 30px var(--gutter) 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .timeline {
+    min-width: 860px;
+  }
+
+  .roles li {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .logo {
+    grid-row: auto;
+    width: 132px;
+  }
+
+  .roles h3,
+  .roles p,
+  .dates {
+    grid-column: 1;
+    grid-row: auto;
+    padding-right: 0;
+    justify-self: start;
+    text-align: left;
+  }
+}
