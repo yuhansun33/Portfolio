@@ -63,7 +63,7 @@ export const PROJECTS = {
 // start/end are fractional years, used to place bars on the timeline
 export const EXPERIENCE = {
   title: 'Experience',
-  intro: 'Three companies, two schools, one thread: making data and models useful in real operations.',
+  intro: 'Turning data and models into work that matters.',
   now: 2026.84,
   items: [
     {

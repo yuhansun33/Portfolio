@@ -18,8 +18,19 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 6px 16px 6px 10px;
+  border-radius: 999px;
   font-size: var(--t-body);
   font-weight: 600;
+  transition: background-color 0.4s, box-shadow 0.4s;
+}
+
+/* past the hero, page content scrolls under the brand: give it the same glass as the nav */
+.is-past-hero .brand {
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  backdrop-filter: blur(20px) saturate(1.5);
+  box-shadow: inset 0 0 0 1px var(--glass-line);
 }
 
 .brand-k {
@@ -150,7 +161,7 @@ canvas.brand-k.is-ready {
 @media (max-width: 760px) {
   .top {
     inset: 14px 0 auto;
-    padding: 0 16px;
+    padding: 0 12px;
     grid-template-columns: 1fr auto;
   }
 
