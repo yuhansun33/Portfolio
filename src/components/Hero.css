@@ -1,0 +1,144 @@
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 680px;
+  overflow: hidden;
+}
+
+.hero-glow {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: 70vw;
+  height: 70vw;
+  max-width: 1000px;
+  max-height: 1000px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.38;
+  background:
+    radial-gradient(circle at 35% 35%, #5b7cff 0, transparent 45%),
+    radial-gradient(circle at 70% 40%, #f0487a 0, transparent 40%),
+    radial-gradient(circle at 50% 75%, #ffb84d 0, transparent 42%),
+    radial-gradient(circle at 25% 70%, #3fd6bd 0, transparent 38%);
+}
+
+:root[data-theme='light'] .hero-glow {
+  opacity: 0.22;
+}
+
+.hero-k {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: min(66vw, 860px);
+  height: min(66vw, 860px);
+  transform: translate(-50%, -50%);
+  filter: blur(5px);
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+
+.hero-k.is-ready {
+  opacity: 0.62;
+}
+
+/* WebGL fallback is an SVG; keep it as quiet as the 3D version */
+svg.hero-k {
+  opacity: 0.3;
+  padding: 8%;
+}
+
+.hero-words {
+  position: absolute;
+  left: var(--gutter);
+  top: 50%;
+  z-index: 2;
+  max-width: min(860px, calc(100% - 2 * var(--gutter)));
+  transform: translateY(-62%);
+}
+
+.hero h1 {
+  font-size: var(--t-display);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.hero-tagline {
+  margin-top: 24px;
+  max-width: 32ch;
+  font-size: var(--t-lead);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  text-shadow: 0 1px 30px color-mix(in srgb, var(--bg) 70%, transparent);
+}
+
+.hero-card {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 10vh;
+  z-index: 2;
+  width: min(480px, calc(100% - 2 * var(--gutter)));
+  padding: 26px 28px 22px;
+  border-radius: 22px;
+}
+
+.hero-card p {
+  font-size: var(--t-title);
+  line-height: 1.45;
+}
+
+.hero-card b {
+  font-weight: 500;
+}
+
+.social {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.social a {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  box-shadow: inset 0 0 0 1px var(--glass-line);
+  transition: background-color 0.2s, transform 0.2s var(--ease);
+}
+
+.social a:hover {
+  background: color-mix(in srgb, var(--ink) 14%, transparent);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 760px) {
+  .hero {
+    min-height: 640px;
+  }
+
+  .hero-k {
+    width: 120vw;
+    height: 120vw;
+    top: 38%;
+  }
+
+  .hero-words {
+    top: 38%;
+  }
+
+  .hero-card {
+    left: 16px;
+    right: 16px;
+    bottom: 4vh;
+    width: auto;
+    padding: 20px 20px 18px;
+  }
+}

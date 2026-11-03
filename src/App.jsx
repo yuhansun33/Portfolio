@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Header from './components/Header.jsx';
+import Hero from './components/Hero.jsx';
 import { useTheme } from './lib/useTheme.js';
 
 // True once the hero (id="top") has mostly scrolled away.
@@ -23,7 +24,9 @@ function App() {
     <>
       <a className="skip" href="#main">Skip to content</a>
       <Header theme={theme} onToggleTheme={toggleTheme} pastHero={pastHero} />
-      <main id="main" />
+      <main id="main">
+        <Hero theme={theme} />
+      </main>
     </>
   );
 }
