@@ -1,0 +1,192 @@
+.projects {
+  position: relative;
+  padding: 140px 0 40px;
+}
+
+.projects-head {
+  text-align: center;
+  padding: 0 var(--gutter);
+}
+
+.projects-head p {
+  margin-top: 14px;
+}
+
+.projects-count {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: var(--t-small);
+  letter-spacing: 0.04em;
+  color: var(--soft);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- card ---------- */
+.card {
+  width: 360px;
+  height: 470px;
+  border-radius: 22px;
+  background: var(--card);
+  color: var(--card-ink);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.3s;
+}
+
+.card.is-link:hover {
+  box-shadow: var(--shadow), 0 0 0 2px var(--accent);
+}
+
+.card-cover {
+  position: relative;
+  height: 220px;
+  flex: none;
+  background: #e3e7ec;
+}
+
+.card-cover svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card-num {
+  position: absolute;
+  left: 14px;
+  top: 12px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+  font-size: var(--t-small);
+  color: #56606b;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.card-tag {
+  position: absolute;
+  right: 14px;
+  top: 12px;
+  padding: 3px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(21, 24, 28, 0.3);
+  background: rgba(255, 255, 255, 0.75);
+  font-size: var(--t-small);
+}
+
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 24px;
+}
+
+.card-body h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--t-title);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.card-arrow {
+  color: var(--card-soft);
+}
+
+.card-body hr {
+  width: 28px;
+  margin: 14px 0 12px;
+  border: 0;
+  border-top: 1.5px solid currentColor;
+  opacity: 0.7;
+}
+
+.card-body p {
+  font-size: var(--t-body);
+  line-height: 1.55;
+  color: var(--card-soft);
+}
+
+.card-meta {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: var(--t-small);
+  color: var(--card-soft);
+}
+
+/* ---------- default: a swipeable row (phones, reduced motion) ---------- */
+.cards {
+  display: flex;
+  gap: 18px;
+  margin-top: 48px;
+  padding: 10px var(--gutter) 40px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 var(--gutter);
+  scrollbar-width: none;
+}
+
+.cards::-webkit-scrollbar {
+  display: none;
+}
+
+.card-slot {
+  flex: none;
+  scroll-snap-align: start;
+}
+
+/* ---------- wide screens: pinned stage, cards ride an arc as you scroll ---------- */
+.projects.is-arc {
+  padding: 0;
+}
+
+.is-arc .projects-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.is-arc .projects-head {
+  position: absolute;
+  top: 13vh;
+  left: 0;
+  right: 0;
+}
+
+.is-arc .cards {
+  display: block;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+}
+
+.is-arc .card-slot {
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  margin: -235px 0 0 -180px;
+  will-change: transform;
+}
+
+@media (max-width: 760px) {
+  .projects {
+    padding-top: 110px;
+  }
+
+  .card {
+    width: min(320px, 82vw);
+    height: 460px;
+  }
+
+  .card-cover {
+    height: 196px;
+  }
+}
