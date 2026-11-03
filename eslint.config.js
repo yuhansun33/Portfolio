@@ -23,8 +23,7 @@ export default defineConfig([
       },
     },
     rules: {
-      // `motion` is only referenced as <motion.div>, which core no-unused-vars can't see
-      'no-unused-vars': ['error', { varsIgnorePattern: '^([A-Z_]|motion$)' }],
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
   },
 ])

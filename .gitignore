@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 build
+
+# design-skill working files
+.taste-skill
