@@ -1,0 +1,39 @@
+.tools {
+  padding-top: 160px;
+}
+
+.tool-groups {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  margin-top: 40px;
+}
+
+.tool-groups > div {
+  padding-top: 18px;
+  border-top: 1px solid var(--faint);
+}
+
+.tool-groups dt {
+  font-size: var(--t-small);
+  font-weight: 500;
+  color: var(--soft);
+}
+
+.tool-groups dd {
+  margin-top: 10px;
+  font-size: var(--t-body);
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .tool-groups {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .tools {
+    padding-top: 120px;
+  }
+}

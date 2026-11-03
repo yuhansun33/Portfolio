@@ -1,0 +1,43 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 140px;
+  padding-top: 24px;
+  padding-bottom: 48px;
+  font-size: var(--t-small);
+  color: var(--soft);
+  position: relative;
+}
+
+/* the rule spans the content width, not the padded box */
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--gutter);
+  right: var(--gutter);
+  border-top: 1px solid var(--faint);
+}
+
+.footer ul {
+  display: flex;
+  gap: 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.footer a {
+  transition: color 0.2s;
+}
+
+.footer a:hover {
+  color: var(--ink);
+}
+
+@media (max-width: 760px) {
+  .footer {
+    flex-direction: column;
+    margin-top: 100px;
+  }
+}

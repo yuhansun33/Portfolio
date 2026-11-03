@@ -3,6 +3,8 @@ import Header from './components/Header.jsx';
 import Hero from './components/Hero.jsx';
 import Projects from './components/Projects.jsx';
 import Experience from './components/Experience.jsx';
+import Tools from './components/Tools.jsx';
+import Footer from './components/Footer.jsx';
 import { useTheme } from './lib/useTheme.js';
 
 // True once the hero (id="top") has mostly scrolled away.
@@ -30,7 +32,9 @@ function App() {
         <Hero theme={theme} />
         <Projects />
         <Experience />
+        <Tools />
       </main>
+      <Footer />
     </>
   );
 }
