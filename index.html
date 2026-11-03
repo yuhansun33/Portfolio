@@ -1,29 +1,41 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/owl.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-    <meta name="theme-color" content="#3b82f6" />
-    
-    <!-- Browser compatibility -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    
-    <!-- Preconnect to improve performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    
-    <title>Kerstin Sun's Portfolio</title>
-    
-    <!-- Load polyfills for Safari and older browsers -->
-    <script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?features=Promise%2Cfetch%2CSymbol%2CObject.assign%2CArray.from%2CArray.prototype.includes%2CString.prototype.includes%2CObject.entries%2CObject.values"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#17191c" />
+
+    <title>Kerstin Sun — Software Engineer</title>
+    <meta name="description" content="Kerstin Sun is a software engineer building AI systems and the data they run on: LLM agents at NVIDIA, data pipelines at Amazon, efficient inference research at Rice." />
+    <link rel="canonical" href="https://kerstin-sun.com/" />
+
+    <!-- Link previews (LinkedIn, Slack, etc.) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kerstin-sun.com/" />
+    <meta property="og:title" content="Kerstin Sun — Software Engineer" />
+    <meta property="og:description" content="Software engineer building AI systems and the data they run on." />
+    <meta property="og:image" content="https://kerstin-sun.com/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Pick the theme before first paint: saved choice, else the OS setting -->
+    <script>
+      (function () {
+        var t = null;
+        try { t = localStorage.getItem('theme'); } catch (e) {}
+        if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        document.documentElement.dataset.theme = t;
+      })();
+    </script>
   </head>
   <body>
     <noscript>
-      <div style="text-align: center; padding: 50px;">
-        <h1>JavaScript Required</h1>
-        <p>This website requires JavaScript to be enabled. Please enable JavaScript in your browser settings.</p>
-      </div>
+      <p style="padding: 40px; font-family: system-ui, sans-serif">
+        Kerstin Sun — software engineer building AI systems and the data they run on.
+        <a href="https://github.com/yuhansun33">GitHub</a> ·
+        <a href="https://www.linkedin.com/in/yuhanssun/">LinkedIn</a> ·
+        <a href="mailto:kerstinsun2000@gmail.com">Email</a>
+      </p>
     </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>

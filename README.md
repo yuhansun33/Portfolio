@@ -1,16 +1,44 @@
-# React + Vite
+# kerstin-sun.com
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal site of Kerstin Sun. React 19 + Vite, a single page, deployed to GitHub Pages on every push to `main`.
 
-Currently, two official plugins are available:
+## Develop
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+npm ci
+npm run dev      # http://localhost:5173
+npm run lint
+npm run build    # outputs dist/
+```
 
-## React Compiler
+## Where things live
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| What | Where |
+| --- | --- |
+| All copy: hero, projects, experience, tools, links | `src/data/content.js` |
+| Colours, type scale, spacing | top of `src/index.css` |
+| Glass K (three.js shader) | `src/lib/glassK.js`, wrapped by `src/components/GlassK.jsx` |
+| K outline (Rubik Bold) used by the 3D K, nav fallback and favicon | `src/lib/kGlyph.js` |
+| Project cover drawings | `src/components/Covers.jsx` |
+| Logos, résumé, social preview image | `public/logos/`, `public/docs/`, `public/og.png` |
 
-## Expanding the ESLint configuration
+## Type scale
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Six sizes only, defined as CSS variables in `src/index.css`:
+
+| Token | Size | Used for |
+| --- | --- | --- |
+| `--t-display` | 56–104px | the name, nothing else |
+| `--t-h2` | 36–52px | section titles |
+| `--t-lead` | 24–34px | hero tagline, section intros |
+| `--t-title` | 22px | card titles, roles, hero card text |
+| `--t-body` | 16px | body copy |
+| `--t-small` | 14px | nav, buttons, meta, dates, tags |
+
+Weights: 400, 500, 600 (Rubik, self-hosted via `@fontsource/rubik`).
+
+## Notes
+
+- three.js is loaded lazily after first paint; the render loop pauses off screen and honours `prefers-reduced-motion`. Without WebGL the K falls back to a flat SVG.
+- The theme follows the OS setting until the visitor picks one with the toggle (saved in `localStorage`).
+- Logos belong to their owners and are used only to identify where Kerstin worked and studied.

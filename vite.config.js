@@ -11,9 +11,8 @@ export default defineConfig({
   })],
   base: '/',
   build: {
-    // Target modern browsers with extra Safari compatibility
-    target: ['es2015', 'safari12'],
-    // Enable polyfills for older browsers
+    // backdrop-filter, color-mix and WebGL2 already need a modern browser
+    target: 'es2020',
     cssCodeSplit: true,
     sourcemap: false,
     minify: 'esbuild', // Use esbuild for faster builds
@@ -27,9 +26,5 @@ export default defineConfig({
     watch: {
       usePolling: true,
     },
-  },
-  // Optimize dependencies for better browser support
-  optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom', 'framer-motion'],
   },
 })
