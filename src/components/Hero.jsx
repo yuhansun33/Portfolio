@@ -21,7 +21,7 @@ export default function Hero({ theme }) {
         <p className="hero-tagline">{HERO.tagline}</p>
       </div>
 
-      <div className="hero-card glass">
+      <div className="hero-card">
         <p>
           {HERO.detail.map(([text, strong]) => (strong ? <b key={text}>{text}</b> : text))}
         </p>
