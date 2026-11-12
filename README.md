@@ -42,3 +42,11 @@ Weights: 400, 500, 600 (Rubik, self-hosted via `@fontsource/rubik`).
 - three.js is loaded lazily after first paint; the render loop pauses off screen and honours `prefers-reduced-motion`. Without WebGL the K falls back to a flat SVG.
 - The theme follows the OS setting until the visitor picks one with the toggle (saved in `localStorage`).
 - Logos belong to their owners and are used only to identify where Kerstin worked and studied.
+
+## Korean practice pages
+
+Hidden pages at `/korean/` (home), `/korean/practice.html` and `/korean/grid.html`. They are plain HTML, CSS and JS in `public/korean/`, copied into the build as they are. They are not linked from the portfolio and carry `noindex`.
+
+- Lesson content lives only in `public/korean/data.js`: add the new lesson to `LESSONS`, its letters to `GROUPS`, its words to `WORDS`, then bump `CURRENT_LESSON`.
+- Sound uses the browser's built-in Korean voice (Web Speech API), so a device needs a Korean voice installed.
+- Practice progress is saved in the visitor's own browser (`localStorage`, keys starting with `hangul:`). The theme shares the portfolio's `theme` key.

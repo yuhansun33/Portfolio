@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Hidden practice pages: not linked from the portfolio and kept out of search results -->
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#17191c" />
+    <title>Korean practice · Kerstin Sun</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+TC:wght@400;500&display=swap" />
+    <link rel="stylesheet" href="/korean/korean.css" />
+    <!-- Same theme choice as the portfolio: saved choice, else the OS setting -->
+    <script>
+      (function () {
+        var t = null;
+        try { t = localStorage.getItem('theme'); } catch (e) {}
+        if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        document.documentElement.dataset.theme = t;
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="top">
+      <a class="brand glass" href="/" aria-label="Kerstin Sun, portfolio home"><span class="brand-mark" aria-hidden="true">한</span>Kerstin Sun <small>Korean practice</small></a>
+      <nav class="pill glass" aria-label="Korean practice">
+        <a href="/korean/" aria-current="page">Home</a>
+        <a href="/korean/practice.html">Practice</a>
+        <a href="/korean/grid.html">Syllables</a>
+      </nav>
+      <div class="top-right"><button type="button" class="round glass" id="theme-toggle" aria-label="Switch theme"></button></div>
+    </header>
+    <main class="wrap" id="main">
+      <div class="head">
+        <h1><span class="ko">한글</span>, a little every day</h1>
+        <p>Twelve weeks from the alphabet to TOPIK I. Pick up where the last lesson left off.</p>
+      </div>
+
+      <div class="today">
+        <article class="card lesson" aria-labelledby="lesson-title">
+          <div class="meta" id="lesson-meta"></div>
+          <h2 id="lesson-title"></h2>
+          <div class="letters" id="lesson-letters" aria-label="Letters in this lesson"></div>
+          <div class="meter">
+            <div class="bar" aria-hidden="true"><i id="known-bar" style="width: 0%"></i></div>
+            <span class="meta" id="known-text"></span>
+          </div>
+          <div class="row">
+            <a class="btn primary" href="/korean/practice.html">Continue practice <span class="btn-arrow" aria-hidden="true">→</span></a>
+            <a class="btn" href="/korean/grid.html">Open syllable chart</a>
+          </div>
+        </article>
+
+        <aside class="words panel glass" aria-labelledby="words-title">
+          <h2 class="label" id="words-title"></h2>
+          <div id="word-list"></div>
+        </aside>
+      </div>
+
+      <div class="tools">
+        <a class="card tool" href="/korean/practice.html">
+          <div class="cover" aria-hidden="true">
+            <span class="cover-num">01</span>
+            <div class="cover-cards"><span>.</span><span>가</span></div>
+          </div>
+          <div class="tool-body">
+            <h3>Practice room</h3>
+            <p>Flashcards, quizzes, spelling, words and a reading test. Letters you miss come back first.</p>
+            <div class="meta" id="practice-meta"></div>
+          </div>
+        </a>
+        <a class="card tool" href="/korean/grid.html">
+          <div class="cover" aria-hidden="true">
+            <span class="cover-num">02</span>
+            <div class="cover-grid"><span>가</span><span>나</span><span>다</span><span class="hi">라</span><span>마</span><span>바</span><span>사</span><span>거</span><span>너</span><span>더</span><span>러</span><span>머</span><span>버</span><span>서</span></div>
+          </div>
+          <div class="tool-body">
+            <h3>Syllable chart</h3>
+            <p>Every consonant with every vowel. Tap a block to hear it, or hide the romanization to test yourself.</p>
+            <div class="meta">Basic 14 × 10 · Full 19 × 21</div>
+          </div>
+        </a>
+      </div>
+      <p class="note" id="voice-note"></p>
+    </main>
+    <script type="module" src="/korean/home.js"></script>
+  </body>
+</html>

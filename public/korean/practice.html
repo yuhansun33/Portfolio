@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Hidden practice pages: not linked from the portfolio and kept out of search results -->
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#17191c" />
+    <title>Practice room · Korean · Kerstin Sun</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+TC:wght@400;500&display=swap" />
+    <link rel="stylesheet" href="/korean/korean.css" />
+    <!-- Same theme choice as the portfolio: saved choice, else the OS setting -->
+    <script>
+      (function () {
+        var t = null;
+        try { t = localStorage.getItem('theme'); } catch (e) {}
+        if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        document.documentElement.dataset.theme = t;
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="top">
+      <a class="brand glass" href="/" aria-label="Kerstin Sun, portfolio home"><span class="brand-mark" aria-hidden="true">한</span>Kerstin Sun <small>Korean practice</small></a>
+      <nav class="pill glass" aria-label="Korean practice">
+        <a href="/korean/">Home</a>
+        <a href="/korean/practice.html" aria-current="page">Practice</a>
+        <a href="/korean/grid.html">Syllables</a>
+      </nav>
+      <div class="top-right"><button type="button" class="round glass" id="theme-toggle" aria-label="Switch theme"></button></div>
+    </header>
+    <main class="wrap" id="main">
+      <div class="head">
+        <h1>Practice room</h1>
+        <p>Learn the letters with flashcards, check them with a quiz, then build syllables.</p>
+      </div>
+      <div class="room">
+        <aside class="side panel glass" aria-label="Practice settings">
+          <h2 class="label" id="mode-label">Mode</h2>
+          <div class="seg" id="modes" role="group" aria-labelledby="mode-label">
+            <button type="button" data-mode="cards">Flashcards</button>
+            <button type="button" data-mode="quiz">Quiz</button>
+            <button type="button" data-mode="spell">Spelling</button>
+            <button type="button" data-mode="words">Words</button>
+          </div>
+          <div id="side-extra"></div>
+          <h2 class="label" id="range-label">Range</h2>
+          <div class="chips" id="range" role="group" aria-labelledby="range-label"></div>
+          <div class="stat" id="stat"></div>
+        </aside>
+        <section class="card stage" id="stage" aria-live="polite"></section>
+      </div>
+      <p class="note" id="voice-note"></p>
+    </main>
+    <script type="module" src="/korean/practice.js"></script>
+  </body>
+</html>
