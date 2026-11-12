@@ -4,7 +4,7 @@
   --ink: #15181c;
   --soft: #5f6873;
   --faint: #d6dbe1;
-  --accent: #46698c;
+  --accent: #1f7a68;
   --card: #ffffff;
   --card-ink: #15181c;
   --card-soft: #5f6873;
@@ -17,7 +17,13 @@
   --ok-soft: #e0efe7;
   --miss: #b4472f;
   --miss-soft: #f6e3dd;
-  --brand: #46698c;
+  --brand: #1f7a68;
+  --brand-hover: #18665a;
+  --brand-soft: #e2f1ec;
+  --sel-bg: #1f7a68;
+  --sel-ink: #ffffff;
+  --chip-bg: #e2f1ec;
+  --chip-ink: #1f7a68;
 
   --t-h2: clamp(36px, 3.6vw, 52px);
   --t-lead: clamp(20px, 2vw, 28px);
@@ -37,7 +43,11 @@
   --ink: #eceef1;
   --soft: #9aa3ad;
   --faint: #2c3137;
-  --accent: #93b2cf;
+  --accent: #4cc2a6;
+  --sel-bg: #4cc2a6;
+  --sel-ink: #10141c;
+  --chip-bg: #163a33;
+  --chip-ink: #4cc2a6;
   --card: #eef0f3;
   --card-ink: #15181c;
   --card-soft: #56606b;
@@ -191,10 +201,14 @@ button:disabled {
   transition: background-color 0.2s, color 0.2s;
 }
 
-.pill a:hover,
-.pill a[aria-current='page'] {
+.pill a:hover {
   color: var(--ink);
   background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+
+.pill a[aria-current='page'] {
+  color: var(--chip-ink);
+  background: var(--chip-bg);
 }
 
 .top-right {
@@ -297,13 +311,13 @@ button:disabled {
 }
 
 .btn.primary {
-  background: var(--card-ink);
-  color: var(--card);
+  background: var(--brand);
+  color: #fff;
   box-shadow: none;
 }
 
 .btn.primary:hover {
-  background: #2a2f36;
+  background: var(--brand-hover);
 }
 
 .btn.again {
@@ -364,8 +378,9 @@ button:disabled {
 }
 
 .seg button[aria-pressed='true'] {
-  background: var(--ink);
-  color: var(--bg);
+  background: var(--sel-bg);
+  color: var(--sel-ink);
+  font-weight: 500;
 }
 
 .chips {
@@ -392,8 +407,13 @@ button:disabled {
 }
 
 .chip[aria-pressed='true'] {
-  background: color-mix(in srgb, var(--ink) 9%, transparent);
-  color: var(--ink);
+  background: var(--chip-bg);
+  color: var(--chip-ink);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--chip-ink) 45%, transparent);
+}
+
+.chip[aria-pressed='true'] > span:first-child::before {
+  content: '✓ ';
 }
 
 .chip .when {
@@ -898,7 +918,7 @@ tbody .hj {
 }
 
 .grid-card td button:hover {
-  background: #e6edf4;
+  background: var(--brand-soft);
 }
 
 .syl {
@@ -933,13 +953,18 @@ tbody .hj {
   color: #fff;
 }
 
+.grid-card th.cur .hj,
+.grid-card tr.cur th .hj {
+  color: #fff !important;
+}
+
 .grid-card th.cur .hr,
 .grid-card tr.cur th .hr {
-  color: #dfe7ef;
+  color: #d5ebe4;
 }
 
 .grid-card td.cross button {
-  background: #eef3f8;
+  background: var(--brand-soft);
 }
 
 .grid-card td.pick button {
@@ -948,7 +973,7 @@ tbody .hj {
 
 .grid-card td.pick .syl,
 .grid-card td.pick .rom {
-  color: #fff;
+  color: #fff !important;
 }
 
 .toast {
