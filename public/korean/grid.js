@@ -26,9 +26,11 @@ function render() {
   const cs = all ? CONS : CONS.slice(0, 14);
   const vs = all ? VOWS : VOWS.slice(0, 10);
   const [pr, pc] = pick || [-1, -1];
+  // one hue per consonant column, as in the original chart; cards stay light in both themes
+  const hue = (i) => `hsl(${Math.round((i * 330) / cs.length)} 68% 38%)`;
   let h = '<thead><tr><td aria-hidden="true"></td>';
   cs.forEach((c, i) => {
-    h += `<th scope="col" class="${i === pc ? 'cur' : ''}"><span class="hj">${c[0]}</span><span class="hr">${c[1] || 'silent'}</span></th>`;
+    h += `<th scope="col" class="${i === pc ? 'cur' : ''}"><span class="hj" style="color:${hue(i)}">${c[0]}</span><span class="hr">${c[1] || 'silent'}</span></th>`;
   });
   h += '</tr></thead><tbody>';
   vs.forEach((v, r) => {
@@ -38,7 +40,7 @@ function render() {
       const s = compose(c[0], v[0]);
       const cell = r === pr && i === pc ? 'pick' : r === pr || i === pc ? 'cross' : '';
       const rom = c[1] + v[1];
-      h += `<td class="${cell}"><button type="button" class="${shown.has(s) ? 'shown' : ''}" data-r="${r}" data-c="${i}" data-s="${s}" aria-label="${s}, ${rom}"><span class="syl" lang="ko">${s}</span><span class="rom">${rom}</span></button></td>`;
+      h += `<td class="${cell}"><button type="button" class="${shown.has(s) ? 'shown' : ''}" data-r="${r}" data-c="${i}" data-s="${s}" aria-label="${s}, ${rom}"><span class="syl" lang="ko" style="color:${hue(i)}">${s}</span><span class="rom">${rom}</span></button></td>`;
     });
     h += '</tr>';
   });
