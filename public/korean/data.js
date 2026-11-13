@@ -3,7 +3,7 @@
 // its letters to GROUPS, its words to WORDS, and bump CURRENT_LESSON.
 
 // The latest lesson Kerstin has finished. The home page shows this lesson.
-export const CURRENT_LESSON = 7;
+export const CURRENT_LESSON = 8;
 
 export const LESSONS = [
   { n: 1, week: 1, title: 'Basic vowels' },
@@ -13,6 +13,7 @@ export const LESSONS = [
   { n: 5, week: 1, title: 'Aspirated consonants ㅊ ㅋ ㅌ ㅍ ㅎ' },
   { n: 6, week: 1, title: 'Putting letters together' },
   { n: 7, week: 2, title: 'Compound vowels ㅐ ㅒ ㅔ ㅖ' },
+  { n: 8, week: 2, title: 'Compound vowels ㅘ ㅙ ㅚ ㅝ ㅞ ㅟ ㅢ' },
 ];
 
 // Letter groups. Each item: [letter, romanization, example syllable, pronunciation tip].
@@ -117,6 +118,15 @@ export const WORDS = [
   [7, '해', 'sun', '「嗨」：太陽出來跟你說嗨'],
   [7, '세계', 'world', '漢字詞「世界」；實際念起來像 세게'],
   [7, '카메라', 'camera', '英文 camera'],
+  [8, '사과', 'apple; apology', '漢字詞「沙果」是蘋果，「謝過」是道歉，同一個音'],
+  [8, '과자', 'snacks, cookies', '漢字詞「菓子」，日文也叫菓子'],
+  [8, '뭐', 'what', 'ㅜ+ㅓ：嘴先嘟、再放開成不圓的 ㄜ，「ㄇㄨㄜ？」'],
+  [8, '왜', 'why', '念起來像中文「為」：為什麼？'],
+  [8, '회사', 'company', '漢字詞「會社」，日文也這樣叫公司'],
+  [8, '돼지', 'pig', '「對嘰」：豬對著你嘰嘰叫'],
+  [8, '위', 'top, above; stomach', '漢字詞「胃」；另一個意思是「上面」'],
+  [8, '귀', 'ear', '念起來像「鬼」：鬼也有耳朵'],
+  [8, '의사', 'doctor', '漢字詞「醫師」'],
 ].map(([l, ko, en, hint]) => ({ l, ko, en, hint }));
 
 // Extra real words for the reading test. Only words spelled with letters already learned are asked.
@@ -131,4 +141,6 @@ export const READING_WORDS = {
   피자: 'pizza', 휴지: 'tissue', 오후: 'afternoon', 키: 'height', 파: 'green onion', 우표: 'stamp',
   치즈: 'cheese', 카드: 'card', 투표: 'vote', 예: 'yes (formal)', 새: 'bird; new', 매미: 'cicada',
   얘기: 'talk, story', 베개: 'pillow', 메뉴: 'menu', 모래: 'sand', 어제: 'yesterday', 가게: 'shop',
+  가위: 'scissors', 의자: 'chair', 주위: 'surroundings', 뒤: 'behind', 샤워: 'shower', 교회: 'church',
+  외우다: 'to memorize', 쉬다: 'to rest', 과거: 'the past', 화가: 'painter',
 };
