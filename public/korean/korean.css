@@ -715,10 +715,6 @@ button:disabled {
   max-width: 42ch;
 }
 
-.hint {
-  font-family: 'Noto Sans TC', var(--ko);
-}
-
 .stage > .row {
   justify-content: center;
   margin-top: auto;

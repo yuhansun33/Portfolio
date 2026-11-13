@@ -383,7 +383,7 @@ function drawWCard() {
   stage.innerHTML = '';
   stage.append(html(`<div class="stage-meta"><span>${wIdx + 1} / ${wDeck.length}</span><span>${left} still to learn</span></div>
     <div class="bar" aria-hidden="true"><i style="width:${Math.round(((wIdx + 1) / wDeck.length) * 100)}%"></i></div>${front}
-    <div class="answer" ${wFlip ? '' : 'hidden'}>${back}<div class="tip">Mnemonic: <span class="hint" lang="zh-Hant">${esc(w.hint)}</span></div></div>
+    <div class="answer" ${wFlip ? '' : 'hidden'}>${back}${w.note ? `<div class="tip">Tip: ${esc(w.note)}</div>` : ''}</div>
     <div class="row"></div>`));
   const r = stage.querySelector('.row');
   if (wDir === 'k2e' || wFlip) r.append(sayBtn(w.ko));
@@ -453,7 +453,7 @@ function drawWQ() {
       }
       speak(it.ko);
       fb.innerHTML = '';
-      fb.append(html(`<div class="tip"><span lang="ko" class="example">${it.ko}</span> = ${esc(it.en)}. <span class="hint" lang="zh-Hant">${esc(it.hint)}</span></div>`));
+      fb.append(html(`<div class="tip"><span lang="ko" class="example">${it.ko}</span> = ${esc(it.en)}.${it.note ? ` ${esc(it.note)}` : ''}</div>`));
       const r = document.createElement('div');
       r.className = 'row';
       r.append(sayBtn(it.ko), button(wQi === 9 ? 'See score' : 'Next', () => {
