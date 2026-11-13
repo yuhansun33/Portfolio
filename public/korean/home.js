@@ -31,7 +31,7 @@ document.getElementById('known-bar').style.width = `${Math.round((knownCount / a
 document.getElementById('known-text').textContent =
   `${knownCount} of ${allLetters.length} letters known` + (best !== null ? ` · best quiz ${best} / 10` : '');
 
-// Latest lesson's words: meaning only, no mnemonics on the home page.
+// Latest lesson's words: English meaning only.
 let words = WORDS.filter((w) => w.l === lesson.n);
 let wordsLesson = lesson.n;
 if (!words.length) {

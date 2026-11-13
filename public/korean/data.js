@@ -77,7 +77,7 @@ export const GROUPS = [
 ];
 
 // Words by lesson: [lesson, Korean, English, mnemonic].
-// Mnemonics are Chinese sound-alikes from the lessons; they only work in Chinese, so they stay in Chinese.
+// Mnemonics are Chinese sound-alikes kept from the lessons for reference; the site is English-only and does not show them.
 export const WORDS = [
   [1, '아이', 'child', '開頭「阿」，像「阿弟仔」就是小孩'],
   [1, '오이', 'cucumber', '開頭嘟嘴的「喔」：「喔，一根小黃瓜」'],
