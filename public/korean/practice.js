@@ -10,19 +10,23 @@ const taught = GROUPS.filter((g) => g.lesson <= CURRENT_LESSON).map((g) => g.id)
 let selected = store.get('groups2', taught.length ? taught : ['v1']).filter((id) => GROUPS.some((g) => g.id === id));
 if (!selected.length) selected = ['v1'];
 let known = store.get('known', {});
-let mode = ['cards', 'quiz', 'spell', 'words', 'sent'].includes(location.hash.slice(1)) ? location.hash.slice(1) : 'cards';
+const LETTER_MODES = ['cards', 'quiz', 'spell', 'build'];
+const MODES = [...LETTER_MODES, 'words', 'sent'];
+// the hash wins (shared links); otherwise reopen the practice used last time
+let mode = [location.hash.slice(1), store.get('mode', 'cards')].find((m) => MODES.includes(m)) || 'cards';
+let letterMode = LETTER_MODES.includes(mode) ? mode : 'cards'; // last letter practice, restored when Letters is tapped
 
 const wordLessons = [...new Set(WORDS.map((w) => w.l))];
 let wLessons = store.get('wl', [Math.max(...wordLessons.filter((n) => n <= CURRENT_LESSON))]).filter((n) => wordLessons.includes(n));
 if (!wLessons.length) wLessons = [wordLessons[wordLessons.length - 1]];
-let wSub = 'cards';
+let wSub = ['cards', 'quiz', 'read'].includes(store.get('wsub')) ? store.get('wsub') : 'cards';
 let wDir = 'k2e';
 let wKnown = store.get('wknown', {});
 
 const sentLessons = [...new Set(SENTENCES.map((x) => x.l))];
 let sLessons = store.get('sl', sentLessons).filter((n) => sentLessons.includes(n));
 if (!sLessons.length) sLessons = sentLessons.slice();
-let sSub = 'cards';
+let sSub = ['cards', 'build', 'pick'].includes(store.get('ssub')) ? store.get('ssub') : 'cards';
 
 const sayBtn = (text, label = 'Listen') => {
   const b = button('', () => speak(text));
@@ -37,13 +41,13 @@ function pressed(box, attr, value) {
 }
 
 function renderSide() {
-  pressed(document.getElementById('modes'), 'mode', mode);
+  pressed(document.getElementById('modes'), 'mode', LETTER_MODES.includes(mode) ? 'letters' : mode);
   sideExtra.innerHTML = '';
   range.innerHTML = '';
   if (mode === 'words') {
     sideExtra.append(html(`<div class="seg" id="wsub" role="group" aria-label="Word practice">
-        <button type="button" data-v="cards">Word cards</button><button type="button" data-v="quiz">Word quiz</button>
-        <button type="button" data-v="read">Reading test</button></div>`));
+        <button type="button" data-v="cards">Cards</button><button type="button" data-v="quiz">Quiz</button>
+        <button type="button" data-v="read">Reading</button></div>`));
     if (wSub !== 'read') {
       sideExtra.append(html(`<div class="seg" id="wdir" role="group" aria-label="Direction" style="margin-top:10px">
         <button type="button" data-v="k2e">KO → EN</button><button type="button" data-v="e2k">EN → KO</button></div>`));
@@ -52,6 +56,7 @@ function renderSide() {
       b.setAttribute('aria-pressed', String(b.dataset.v === wSub));
       b.onclick = () => {
         wSub = b.dataset.v;
+        store.set('wsub', wSub);
         start();
       };
     });
@@ -82,12 +87,13 @@ function renderSide() {
     stat.innerHTML = `<b>${knownWords}</b> of ${WORDS.length} words known`;
   } else if (mode === 'sent') {
     sideExtra.append(html(`<div class="seg" id="ssub" role="group" aria-label="Sentence practice">
-        <button type="button" data-v="cards">Sentence cards</button><button type="button" data-v="build">Build it</button>
-        <button type="button" data-v="pick">Pick one</button></div>`));
+        <button type="button" data-v="cards">Cards</button><button type="button" data-v="pick">Quiz</button>
+        <button type="button" data-v="build">Build</button></div>`));
     sideExtra.querySelectorAll('#ssub button').forEach((b) => {
       b.setAttribute('aria-pressed', String(b.dataset.v === sSub));
       b.onclick = () => {
         sSub = b.dataset.v;
+        store.set('ssub', sSub);
         start();
       };
     });
@@ -111,6 +117,13 @@ function renderSide() {
     });
     stat.innerHTML = `<b>${SENTENCES.filter((x) => sLessons.includes(x.l)).length}</b> sentences selected`;
   } else {
+    sideExtra.append(html(`<div class="seg" id="lsub" role="group" aria-label="Letter practice">
+        <button type="button" data-v="cards">Cards</button><button type="button" data-v="quiz">Quiz</button>
+        <button type="button" data-v="spell">Spelling</button><button type="button" data-v="build">Build</button></div>`));
+    sideExtra.querySelectorAll('#lsub button').forEach((b) => {
+      b.setAttribute('aria-pressed', String(b.dataset.v === mode));
+      b.onclick = () => setMode(b.dataset.v);
+    });
     GROUPS.forEach((g) => {
       const on = selected.includes(g.id);
       const b = document.createElement('button');
@@ -136,9 +149,7 @@ function renderSide() {
 
 document.querySelectorAll('#modes button').forEach((b) => {
   b.addEventListener('click', () => {
-    mode = b.dataset.mode;
-    history.replaceState(null, '', '#' + mode);
-    start();
+    setMode(b.dataset.mode === 'letters' ? letterMode : b.dataset.mode);
   });
 });
 
@@ -239,8 +250,8 @@ function drawQ() {
     const best = store.get('best', 0);
     if (score > best) store.set('best', score);
     renderSide();
-    const msg = score >= 8 ? 'Passed. You can move on to the next range.' : 'Nearly. Review the missed letters with flashcards, then try again.';
-    result(score, msg, [...new Set(misses.map((m) => `${m.ch} ${m.ro}`))], startQuiz, ['Review with flashcards', () => setMode('cards')]);
+    const msg = score >= 8 ? 'Passed. You can move on to the next range.' : 'Nearly. Review the missed letters with cards, then try again.';
+    result(score, msg, [...new Set(misses.map((m) => `${m.ch} ${m.ro}`))], startQuiz, ['Review with cards', () => setMode('cards')]);
     return;
   }
   const { it, type, opts } = qs[qi];
@@ -322,11 +333,7 @@ function drawSpell() {
   stage.innerHTML = '';
   stage.append(html(`<div class="stage-meta"><span>Spelling</span><span>${spellOK} of ${spellN} right</span></div>
     <div class="q">Which block says <b>${esc(q.ro || '(silent)')}</b>?</div>
-    <div class="choices"></div><div class="feedback" style="margin-top:0"></div>
-    <hr class="divider" />
-    <div class="label">Build your own: pick a consonant and a vowel</div>
-    <div class="keys" id="kl"></div><div class="keys" id="kv"></div>
-    <div class="big word-size" id="built" lang="ko"></div><div class="roman" id="built-ro"></div><div class="row" id="built-say"></div>`));
+    <div class="choices"></div><div class="feedback"></div>`));
   const ch = stage.querySelector('.choices');
   const fb = stage.querySelector('.feedback');
   q.opts.forEach((o) => {
@@ -354,10 +361,19 @@ function drawSpell() {
     };
     ch.append(b);
   });
+}
+
+// ---------- build: pick a consonant and a vowel, hear the block ----------
+function startBuild() {
   const cs = lettersOf('c', 'c1');
   const vs = lettersOf('v', 'v1');
   if (!cs.includes(pickL)) pickL = cs[0];
   if (!vs.includes(pickV)) pickV = vs[0];
+  stage.innerHTML = '';
+  stage.append(html(`<div class="stage-meta"><span>Build a block</span><span></span></div>
+    <div class="q">Pick a consonant and a vowel. The block is read aloud.</div>
+    <div class="keys" id="kl" aria-label="Consonants"></div><div class="keys" id="kv" aria-label="Vowels"></div>
+    <div class="big word-size" id="built" lang="ko"></div><div class="roman" id="built-ro"></div><div class="row" id="built-say"></div>`));
   const keys = (box, list, cur, set) => {
     box.innerHTML = '';
     list.forEach((c) => {
@@ -368,12 +384,13 @@ function drawSpell() {
       b.setAttribute('aria-pressed', String(c === cur));
       b.onclick = () => {
         set(c);
-        drawBuilt();
+        drawBuilt(true);
+        box.querySelector(`[aria-pressed="true"]`)?.focus();
       };
       box.append(b);
     });
   };
-  function drawBuilt() {
+  function drawBuilt(say) {
     keys(stage.querySelector('#kl'), cs, pickL, (c) => (pickL = c));
     keys(stage.querySelector('#kv'), vs, pickV, (c) => (pickV = c));
     const s = compose(pickL, pickV);
@@ -382,8 +399,9 @@ function drawSpell() {
     const r = stage.querySelector('#built-say');
     r.innerHTML = '';
     r.append(sayBtn(s));
+    if (say) speak(s);
   }
-  drawBuilt();
+  drawBuilt(false);
 }
 
 // ---------- words ----------
@@ -457,8 +475,8 @@ function startWQuiz() {
 
 function drawWQ() {
   if (wQi >= wQs.length) {
-    const msg = wScore >= 8 ? 'Passed.' : 'Review the missed words with word cards, then try again.';
-    result(wScore, msg, [...new Set(wMiss.map((m) => `${m.ko} ${m.en}`))], startWQuiz, ['Review with word cards', () => {
+    const msg = wScore >= 8 ? 'Passed.' : 'Review the missed words with cards, then try again.';
+    result(wScore, msg, [...new Set(wMiss.map((m) => `${m.ko} ${m.en}`))], startWQuiz, ['Review with cards', () => {
       wSub = 'cards';
       start();
     }]);
@@ -807,14 +825,15 @@ function drawPick() {
 // ---------- mode switching ----------
 function setMode(m) {
   mode = m;
+  store.set('mode', m);
+  if (LETTER_MODES.includes(m)) letterMode = m;
   history.replaceState(null, '', '#' + m);
   start();
 }
 
 function start() {
   renderSide();
-  document.getElementById('range-label').textContent = mode === 'words' || mode === 'sent' ? 'Lessons' : 'Range';
-  ({ cards: startCards, quiz: startQuiz, spell: startSpell, words: startWords, sent: startSent })[mode]();
+  ({ cards: startCards, quiz: startQuiz, spell: startSpell, build: startBuild, words: startWords, sent: startSent })[mode]();
 }
 
 start();
