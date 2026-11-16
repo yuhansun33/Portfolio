@@ -3,7 +3,7 @@
 // its letters to GROUPS, its words to WORDS, and bump CURRENT_LESSON.
 
 // The latest lesson Kerstin has finished. The home page shows this lesson.
-export const CURRENT_LESSON = 8;
+export const CURRENT_LESSON = 9;
 
 export const LESSONS = [
   { n: 1, week: 1, title: 'Basic vowels' },
@@ -14,6 +14,7 @@ export const LESSONS = [
   { n: 6, week: 1, title: 'Putting letters together' },
   { n: 7, week: 2, title: 'Compound vowels ㅐ ㅒ ㅔ ㅖ' },
   { n: 8, week: 2, title: 'Compound vowels ㅘ ㅙ ㅚ ㅝ ㅞ ㅟ ㅢ' },
+  { n: 9, week: 2, title: 'Tense consonants ㄲ ㄸ ㅃ ㅆ ㅉ' },
 ];
 
 // Letter groups. Each item: [letter, romanization, example syllable, pronunciation tip].
@@ -129,6 +130,16 @@ export const WORDS = [
   [8, '위', 'top, above; stomach', '漢字詞「胃」；另一個意思是「上面」', 'Stomach is Sino-Korean, from Chinese wèi. It also means top, above.'],
   [8, '귀', 'ear', '念起來像「鬼」：鬼也有耳朵', '"Gwee": whisper it into someone\'s ear.'],
   [8, '의사', 'doctor', '漢字詞「醫師」', 'Sino-Korean word, from Chinese yīshī.'],
+  [9, '아빠', 'dad', '「阿爸」，爸 要用力念；比 아버지 親切', '"Ah-ppa": a tight ㅃ with no puff of air. Friendlier than 아버지.'],
+  [9, '오빠', 'older brother (said by a woman)', '韓劇的「歐巴」', 'The "oppa" from K-dramas. A woman calls her older brother, or an older guy friend, 오빠.'],
+  [9, '토끼', 'rabbit', '토 念起來就像「兔」', '"To-kki": a tight ㄲ, like a rabbit\'s quick little hop.'],
+  [9, '꼬리', 'tail', '「勾哩」：尾巴勾起來，ㄲ 用力', '"Kko-ri": a tight ㄲ, like a tail curled up tight.'],
+  [9, '어깨', 'shoulder', '「呃，嘎」：扛重物在肩上叫一聲', '"Uh-kkeh": a relaxed "uh", never "o". Grunt "uh!" as you lift a box onto your shoulder.'],
+  [9, '뼈', 'bone', '用力的「ㄅㄧㄜ」，骨頭「啪」一聲', '"Ppyuh": a tight ㅃ and an unrounded ㅕ, like a bone snapping.'],
+  [9, '아저씨', 'mister; middle-aged man', '韓劇常聽到；씨 像用力的「細」', '"Ah-juh-ssi": ㅓ is a relaxed "uh"; 씨 is a tight, hissing "ssi".'],
+  [9, '가짜', 'fake', '가 就是漢字「假」', '가 is Sino-Korean, from Chinese jiǎ (fake). 짜 has a tight ㅉ.'],
+  [9, '또', 'again; also', '用力的「多」：再多來一次', '"Tto": a tight ㄸ. Again and again: tto, tto.'],
+  [9, '비싸요', "it's expensive", '「逼撒」：貴到逼你撒錢', '"Bi-ssa-yo": a tight, hissing ㅆ, like sucking air through your teeth at the price.'],
 ].map(([l, ko, en, hint, note]) => ({ l, ko, en, hint, note }));
 
 // Extra real words for the reading test. Only words spelled with letters already learned are asked.
@@ -145,4 +156,30 @@ export const READING_WORDS = {
   얘기: 'talk, story', 베개: 'pillow', 메뉴: 'menu', 모래: 'sand', 어제: 'yesterday', 가게: 'shop',
   가위: 'scissors', 의자: 'chair', 주위: 'surroundings', 뒤: 'behind', 샤워: 'shower', 교회: 'church',
   외우다: 'to memorize', 쉬다: 'to rest', 과거: 'the past', 화가: 'painter',
+  까치: 'magpie', 찌개: 'stew', 씨: 'seed; Mr./Ms. (after a name)', 쓰레기: 'trash', 뿌리: 'root',
+  꼬마: 'little kid', 때: 'time, when', 코끼리: 'elephant', 싸다: 'to be cheap',
 };
+
+// Sentences by lesson: [lesson, tiles, English].
+// Tiles are the blocks for "Build it". A tile starting with "+" attaches to the previous tile with no space.
+export const SENTENCES = [
+  [8, ['이거', '뭐', '+예요?'], 'What is this?'],
+  [8, ['커피', '+예요.'], "It's coffee."],
+  [8, ['사과', '+예요.'], "It's an apple."],
+  [8, ['의사', '+예요.'], "I'm a doctor."],
+  [8, ['돼지', '+예요.'], "It's a pig."],
+  [8, ['이거', '+예요.'], "It's this one."],
+  [9, ['커피', '주세요.'], 'Coffee, please.'],
+  [9, ['이거', '주세요.'], 'This one, please.'],
+  [9, ['우유', '주세요.'], 'Milk, please.'],
+  [9, ['사과', '주세요.'], 'An apple, please.'],
+  [9, ['하나', '더', '주세요.'], 'One more, please.'],
+  [9, ['비싸요!'], "It's expensive!"],
+].map(([l, tiles, en]) => ({ l, tiles, en }));
+
+// Common slips, used as wrong options: [right, wrong]. "Build it" adds a wrong tile; "Pick one" builds wrong sentences.
+export const SENTENCE_SLIPS = [
+  ['예요', '예유'], ['예요', '에요'], ['주세요', '주세유'], ['주세요', '즈세요'], ['뭐', '뫼'], ['뭐', '모'],
+  ['이거', '이고'], ['커피', '코피'], ['커피', '커히'], ['사과', '사고'], ['돼지', '대지'], ['돼지', '되지'],
+  ['비싸요', '비사요'], ['비싸요', '피싸요'], ['하나', '하니'], ['우유', '오유'], ['의사', '이사'],
+];
