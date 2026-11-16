@@ -361,6 +361,14 @@ button:disabled {
   background: color-mix(in srgb, var(--ink) 6%, transparent);
 }
 
+.seg.three {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.seg.three button {
+  padding-inline: 6px;
+}
+
 .seg.inline {
   display: inline-grid;
   grid-auto-flow: column;

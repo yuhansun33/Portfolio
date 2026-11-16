@@ -10,7 +10,9 @@ const taught = GROUPS.filter((g) => g.lesson <= CURRENT_LESSON).map((g) => g.id)
 let selected = store.get('groups2', taught.length ? taught : ['v1']).filter((id) => GROUPS.some((g) => g.id === id));
 if (!selected.length) selected = ['v1'];
 let known = store.get('known', {});
-let mode = ['cards', 'quiz', 'spell', 'words', 'sent'].includes(location.hash.slice(1)) ? location.hash.slice(1) : 'cards';
+const LETTER_MODES = ['cards', 'quiz', 'spell'];
+let mode = [...LETTER_MODES, 'words', 'sent'].includes(location.hash.slice(1)) ? location.hash.slice(1) : 'cards';
+let letterMode = LETTER_MODES.includes(mode) ? mode : 'cards'; // last letter practice, restored when Letters is tapped
 
 const wordLessons = [...new Set(WORDS.map((w) => w.l))];
 let wLessons = store.get('wl', [Math.max(...wordLessons.filter((n) => n <= CURRENT_LESSON))]).filter((n) => wordLessons.includes(n));
@@ -37,7 +39,7 @@ function pressed(box, attr, value) {
 }
 
 function renderSide() {
-  pressed(document.getElementById('modes'), 'mode', mode);
+  pressed(document.getElementById('modes'), 'mode', LETTER_MODES.includes(mode) ? 'letters' : mode);
   sideExtra.innerHTML = '';
   range.innerHTML = '';
   if (mode === 'words') {
@@ -111,6 +113,13 @@ function renderSide() {
     });
     stat.innerHTML = `<b>${SENTENCES.filter((x) => sLessons.includes(x.l)).length}</b> sentences selected`;
   } else {
+    sideExtra.append(html(`<div class="seg" id="lsub" role="group" aria-label="Letter practice">
+        <button type="button" data-v="cards">Flashcards</button><button type="button" data-v="quiz">Quiz</button>
+        <button type="button" data-v="spell">Spelling</button></div>`));
+    sideExtra.querySelectorAll('#lsub button').forEach((b) => {
+      b.setAttribute('aria-pressed', String(b.dataset.v === mode));
+      b.onclick = () => setMode(b.dataset.v);
+    });
     GROUPS.forEach((g) => {
       const on = selected.includes(g.id);
       const b = document.createElement('button');
@@ -136,9 +145,7 @@ function renderSide() {
 
 document.querySelectorAll('#modes button').forEach((b) => {
   b.addEventListener('click', () => {
-    mode = b.dataset.mode;
-    history.replaceState(null, '', '#' + mode);
-    start();
+    setMode(b.dataset.mode === 'letters' ? letterMode : b.dataset.mode);
   });
 });
 
@@ -807,6 +814,7 @@ function drawPick() {
 // ---------- mode switching ----------
 function setMode(m) {
   mode = m;
+  if (LETTER_MODES.includes(m)) letterMode = m;
   history.replaceState(null, '', '#' + m);
   start();
 }
