@@ -46,8 +46,8 @@ function renderSide() {
   range.innerHTML = '';
   if (mode === 'words') {
     sideExtra.append(html(`<div class="seg" id="wsub" role="group" aria-label="Word practice">
-        <button type="button" data-v="cards">Word cards</button><button type="button" data-v="quiz">Word quiz</button>
-        <button type="button" data-v="read">Reading test</button></div>`));
+        <button type="button" data-v="cards">Cards</button><button type="button" data-v="quiz">Quiz</button>
+        <button type="button" data-v="read">Reading</button></div>`));
     if (wSub !== 'read') {
       sideExtra.append(html(`<div class="seg" id="wdir" role="group" aria-label="Direction" style="margin-top:10px">
         <button type="button" data-v="k2e">KO → EN</button><button type="button" data-v="e2k">EN → KO</button></div>`));
@@ -87,8 +87,8 @@ function renderSide() {
     stat.innerHTML = `<b>${knownWords}</b> of ${WORDS.length} words known`;
   } else if (mode === 'sent') {
     sideExtra.append(html(`<div class="seg" id="ssub" role="group" aria-label="Sentence practice">
-        <button type="button" data-v="cards">Sentence cards</button><button type="button" data-v="build">Build it</button>
-        <button type="button" data-v="pick">Pick one</button></div>`));
+        <button type="button" data-v="cards">Cards</button><button type="button" data-v="pick">Quiz</button>
+        <button type="button" data-v="build">Build</button></div>`));
     sideExtra.querySelectorAll('#ssub button').forEach((b) => {
       b.setAttribute('aria-pressed', String(b.dataset.v === sSub));
       b.onclick = () => {
@@ -118,7 +118,7 @@ function renderSide() {
     stat.innerHTML = `<b>${SENTENCES.filter((x) => sLessons.includes(x.l)).length}</b> sentences selected`;
   } else {
     sideExtra.append(html(`<div class="seg" id="lsub" role="group" aria-label="Letter practice">
-        <button type="button" data-v="cards">Flashcards</button><button type="button" data-v="quiz">Quiz</button>
+        <button type="button" data-v="cards">Cards</button><button type="button" data-v="quiz">Quiz</button>
         <button type="button" data-v="spell">Spelling</button><button type="button" data-v="build">Build</button></div>`));
     sideExtra.querySelectorAll('#lsub button').forEach((b) => {
       b.setAttribute('aria-pressed', String(b.dataset.v === mode));
@@ -250,8 +250,8 @@ function drawQ() {
     const best = store.get('best', 0);
     if (score > best) store.set('best', score);
     renderSide();
-    const msg = score >= 8 ? 'Passed. You can move on to the next range.' : 'Nearly. Review the missed letters with flashcards, then try again.';
-    result(score, msg, [...new Set(misses.map((m) => `${m.ch} ${m.ro}`))], startQuiz, ['Review with flashcards', () => setMode('cards')]);
+    const msg = score >= 8 ? 'Passed. You can move on to the next range.' : 'Nearly. Review the missed letters with cards, then try again.';
+    result(score, msg, [...new Set(misses.map((m) => `${m.ch} ${m.ro}`))], startQuiz, ['Review with cards', () => setMode('cards')]);
     return;
   }
   const { it, type, opts } = qs[qi];
@@ -475,8 +475,8 @@ function startWQuiz() {
 
 function drawWQ() {
   if (wQi >= wQs.length) {
-    const msg = wScore >= 8 ? 'Passed.' : 'Review the missed words with word cards, then try again.';
-    result(wScore, msg, [...new Set(wMiss.map((m) => `${m.ko} ${m.en}`))], startWQuiz, ['Review with word cards', () => {
+    const msg = wScore >= 8 ? 'Passed.' : 'Review the missed words with cards, then try again.';
+    result(wScore, msg, [...new Set(wMiss.map((m) => `${m.ko} ${m.en}`))], startWQuiz, ['Review with cards', () => {
       wSub = 'cards';
       start();
     }]);
