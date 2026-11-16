@@ -1,4 +1,4 @@
-import { CURRENT_LESSON, GROUPS, READING_WORDS, SENTENCES, SENTENCE_SLIPS, WORDS } from './data.js';
+import { CURRENT_LESSON, GROUPS, READING_WORDS, SENTENCE_PATTERNS, SENTENCES, SENTENCE_SLIPS, WORDS } from './data.js';
 import { SPEAKER, button, compose, decompose, hasKoreanVoice, html, romanOf, shuffle, speak, store } from './korean.js';
 
 const stage = document.getElementById('stage');
@@ -97,7 +97,9 @@ function renderSide() {
       b.type = 'button';
       b.className = 'chip';
       b.setAttribute('aria-pressed', String(on));
-      b.innerHTML = `<span>Lesson ${n}</span><span class="when">${SENTENCES.filter((x) => x.l === n).length} sentences</span>`;
+      b.innerHTML = SENTENCE_PATTERNS[n]
+        ? `<span>${esc(SENTENCE_PATTERNS[n]).replace(/(\S+) ___/g, '<span class="nowrap">$1 ___</span>')}</span><span class="when">Lesson ${n}</span>`
+        : `<span>Lesson ${n}</span><span class="when">${SENTENCES.filter((x) => x.l === n).length} sentences</span>`;
       b.onclick = () => {
         if (on) {
           if (sLessons.length > 1) sLessons = sLessons.filter((x) => x !== n);

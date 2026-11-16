@@ -169,13 +169,19 @@ export const SENTENCES = [
   [8, ['의사', '+예요.'], "I'm a doctor."],
   [8, ['돼지', '+예요.'], "It's a pig."],
   [8, ['이거', '+예요.'], "It's this one."],
-  [9, ['커피', '주세요.'], 'Coffee, please.'],
-  [9, ['이거', '주세요.'], 'This one, please.'],
-  [9, ['우유', '주세요.'], 'Milk, please.'],
-  [9, ['사과', '주세요.'], 'An apple, please.'],
-  [9, ['하나', '더', '주세요.'], 'One more, please.'],
+  [9, ['커피', '주세요.'], 'Please give me coffee.'],
+  [9, ['이거', '주세요.'], 'Please give me this one.'],
+  [9, ['우유', '주세요.'], 'Please give me milk.'],
+  [9, ['사과', '주세요.'], 'Please give me an apple.'],
+  [9, ['하나', '더', '주세요.'], 'Please give me one more.'],
   [9, ['비싸요!'], "It's expensive!"],
 ].map(([l, tiles, en]) => ({ l, tiles, en }));
+
+// The sentence pattern each lesson teaches, shown on the lesson buttons in Sentences mode.
+export const SENTENCE_PATTERNS = {
+  8: "What is this? It's ___.",
+  9: 'Please give me ___.',
+};
 
 // Common slips, used as wrong options: [right, wrong]. "Build it" adds a wrong tile; "Pick one" builds wrong sentences.
 export const SENTENCE_SLIPS = [
