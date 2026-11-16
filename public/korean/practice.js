@@ -1,4 +1,4 @@
-import { CURRENT_LESSON, GROUPS, READING_WORDS, WORDS } from './data.js';
+import { CURRENT_LESSON, GROUPS, READING_WORDS, SENTENCES, SENTENCE_SLIPS, WORDS } from './data.js';
 import { SPEAKER, button, compose, decompose, hasKoreanVoice, html, romanOf, shuffle, speak, store } from './korean.js';
 
 const stage = document.getElementById('stage');
@@ -10,7 +10,7 @@ const taught = GROUPS.filter((g) => g.lesson <= CURRENT_LESSON).map((g) => g.id)
 let selected = store.get('groups2', taught.length ? taught : ['v1']).filter((id) => GROUPS.some((g) => g.id === id));
 if (!selected.length) selected = ['v1'];
 let known = store.get('known', {});
-let mode = ['cards', 'quiz', 'spell', 'words'].includes(location.hash.slice(1)) ? location.hash.slice(1) : 'cards';
+let mode = ['cards', 'quiz', 'spell', 'words', 'sent'].includes(location.hash.slice(1)) ? location.hash.slice(1) : 'cards';
 
 const wordLessons = [...new Set(WORDS.map((w) => w.l))];
 let wLessons = store.get('wl', [Math.max(...wordLessons.filter((n) => n <= CURRENT_LESSON))]).filter((n) => wordLessons.includes(n));
@@ -18,6 +18,11 @@ if (!wLessons.length) wLessons = [wordLessons[wordLessons.length - 1]];
 let wSub = 'cards';
 let wDir = 'k2e';
 let wKnown = store.get('wknown', {});
+
+const sentLessons = [...new Set(SENTENCES.map((x) => x.l))];
+let sLessons = store.get('sl', sentLessons).filter((n) => sentLessons.includes(n));
+if (!sLessons.length) sLessons = sentLessons.slice();
+let sSub = 'cards';
 
 const sayBtn = (text, label = 'Listen') => {
   const b = button('', () => speak(text));
@@ -75,6 +80,34 @@ function renderSide() {
     });
     const knownWords = WORDS.filter((w) => wKnown[w.ko]).length;
     stat.innerHTML = `<b>${knownWords}</b> of ${WORDS.length} words known`;
+  } else if (mode === 'sent') {
+    sideExtra.append(html(`<div class="seg" id="ssub" role="group" aria-label="Sentence practice">
+        <button type="button" data-v="cards">Sentence cards</button><button type="button" data-v="build">Build it</button>
+        <button type="button" data-v="pick">Pick one</button></div>`));
+    sideExtra.querySelectorAll('#ssub button').forEach((b) => {
+      b.setAttribute('aria-pressed', String(b.dataset.v === sSub));
+      b.onclick = () => {
+        sSub = b.dataset.v;
+        start();
+      };
+    });
+    sentLessons.forEach((n) => {
+      const on = sLessons.includes(n);
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chip';
+      b.setAttribute('aria-pressed', String(on));
+      b.innerHTML = `<span>Lesson ${n}</span><span class="when">${SENTENCES.filter((x) => x.l === n).length} sentences</span>`;
+      b.onclick = () => {
+        if (on) {
+          if (sLessons.length > 1) sLessons = sLessons.filter((x) => x !== n);
+        } else sLessons.push(n);
+        store.set('sl', sLessons);
+        start();
+      };
+      range.append(b);
+    });
+    stat.innerHTML = `<b>${SENTENCES.filter((x) => sLessons.includes(x.l)).length}</b> sentences selected`;
   } else {
     GROUPS.forEach((g) => {
       const on = selected.includes(g.id);
@@ -589,6 +622,186 @@ function drawRead() {
   });
 }
 
+// ---------- sentences: cards, build from tiles, pick the correct one ----------
+const tileText = (t) => (t[0] === '+' ? t.slice(1) : t);
+const joinTiles = (ts) => ts.map((t, i) => (t[0] === '+' ? t.slice(1) : (i ? ' ' : '') + t)).join('');
+const bare = (t) => tileText(t).replace(/[.?!]$/, '');
+const SENTS = SENTENCES.map((x) => ({ ...x, ko: joinTiles(x.tiles) }));
+let sDeck = [];
+let sIdx = 0;
+let sFlip = false;
+let sScore = 0;
+
+function startSent() {
+  sDeck = shuffle(SENTS.filter((x) => sLessons.includes(x.l)));
+  sIdx = 0;
+  sFlip = false;
+  sScore = 0;
+  drawSent();
+}
+
+function drawSent() {
+  if (sIdx >= sDeck.length) {
+    stage.innerHTML = '';
+    stage.append(html(sSub === 'cards'
+      ? '<div class="q">You went through every sentence.</div><div class="row"></div>'
+      : `<div class="q">Your score</div><div class="score">${sScore} / ${sDeck.length}</div><div class="row"></div>`));
+    stage.querySelector('.row').append(button(sSub === 'cards' ? 'Go again' : 'Try again', startSent, 'primary'));
+    return;
+  }
+  ({ cards: drawSCard, build: drawBuild, pick: drawPick })[sSub]();
+}
+
+function sNext() {
+  sIdx++;
+  sFlip = false;
+  drawSent();
+}
+
+function sMeta() {
+  return `<div class="stage-meta"><span>${sIdx + 1} / ${sDeck.length}</span><span>${sSub === 'cards' ? '' : `${sScore} right`}</span></div>
+    <div class="bar" aria-hidden="true"><i style="width:${Math.round((sIdx / sDeck.length) * 100)}%"></i></div>`;
+}
+
+function drawSCard() {
+  const q = sDeck[sIdx];
+  stage.innerHTML = '';
+  stage.append(html(`${sMeta()}<div class="q">How do you say this in Korean?</div><div class="big en-size">${esc(q.en)}</div>
+    <div class="answer" ${sFlip ? '' : 'hidden'}><div class="big sent-size" lang="ko">${q.ko}</div></div><div class="row"></div>`));
+  const r = stage.querySelector('.row');
+  if (!sFlip) {
+    r.append(button('Show answer', () => {
+      sFlip = true;
+      drawSCard();
+      speak(q.ko);
+    }, 'primary'));
+  } else {
+    r.append(sayBtn(q.ko), button('Next', sNext, 'primary'));
+  }
+  r.lastChild.focus();
+}
+
+function drawBuild() {
+  const q = sDeck[sIdx];
+  // one wrong tile from a common slip, so the order alone does not give the answer away
+  const extras = [];
+  q.tiles.forEach((t) => {
+    const slip = SENTENCE_SLIPS.find(([right]) => right === bare(t));
+    if (slip && extras.length < 1) extras.push((t[0] === '+' ? '+' : '') + slip[1] + tileText(t).slice(bare(t).length));
+  });
+  const bank = shuffle(q.tiles.concat(extras).map((t, i) => ({ t, i })));
+  let picked = [];
+  let locked = false;
+  let tries = 0;
+  stage.innerHTML = '';
+  stage.append(html(`${sMeta()}<div class="q">Tap the blocks in order to say: <b>${esc(q.en)}</b></div>
+    <div class="tray ans" aria-label="Your answer"></div><div class="tray bank" aria-label="Blocks"></div>
+    <div class="feedback"><div class="tip" aria-live="polite"></div><div class="row"></div></div>`));
+  const ans = stage.querySelector('.tray.ans');
+  const bk = stage.querySelector('.tray.bank');
+  const note = stage.querySelector('.feedback .tip');
+  const r = stage.querySelector('.feedback .row');
+  const tile = (p, onclick) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'tile';
+    b.lang = 'ko';
+    b.textContent = tileText(p.t);
+    b.disabled = locked;
+    b.onclick = onclick;
+    return b;
+  };
+  const show = () => {
+    ans.innerHTML = picked.length ? '' : '<span class="ph">Your sentence appears here</span>';
+    bk.innerHTML = '';
+    picked.forEach((p) => ans.append(tile(p, () => {
+      picked = picked.filter((x) => x !== p);
+      show();
+    })));
+    bank.filter((p) => !picked.includes(p)).forEach((p) => bk.append(tile(p, () => {
+      picked.push(p);
+      show();
+      speak(bare(p.t));
+    })));
+  };
+  const done = (text) => {
+    note.innerHTML = text;
+    r.innerHTML = '';
+    r.append(sayBtn(q.ko), button('Next', sNext, 'primary'));
+    r.lastChild.focus();
+    speak(q.ko);
+  };
+  const checkRow = () => {
+    r.innerHTML = '';
+    r.append(button('Check', () => {
+      const ok = joinTiles(picked.map((p) => p.t)) === q.ko;
+      locked = true;
+      show();
+      ans.classList.add(ok ? 'ok' : 'bad');
+      if (ok) {
+        if (tries === 0) sScore++;
+        done(tries ? 'Correct, on a later try (no point this time).' : 'Correct!');
+        return;
+      }
+      tries++;
+      note.textContent = 'Not quite. Change the order or swap a block, then check again.';
+      r.innerHTML = '';
+      r.append(button('Show answer', () => done(`The answer is <span lang="ko" class="example">${q.ko}</span>`)), button('Try again', () => {
+        locked = false;
+        ans.classList.remove('bad');
+        note.textContent = '';
+        show();
+        checkRow();
+      }, 'primary'));
+    }, 'primary'));
+  };
+  show();
+  checkRow();
+}
+
+function wrongSentences(ko) {
+  const out = new Set();
+  shuffle(SENTENCE_SLIPS).forEach(([right, wrong]) => {
+    const w = ko.replace(right, wrong);
+    if (w !== ko && out.size < 3) out.add(w);
+  });
+  return [...out];
+}
+
+function drawPick() {
+  const q = sDeck[sIdx];
+  const opts = shuffle([q.ko, ...wrongSentences(q.ko)]);
+  stage.innerHTML = '';
+  stage.append(html(`${sMeta()}<div class="q">Which sentence is correct?</div><div class="big en-size">${esc(q.en)}</div>
+    <div class="choices one-col"></div><div class="feedback"></div>`));
+  const ch = stage.querySelector('.choices');
+  const fb = stage.querySelector('.feedback');
+  opts.forEach((o) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'choice';
+    b.lang = 'ko';
+    b.textContent = o;
+    b.onclick = () => {
+      ch.querySelectorAll('button').forEach((x) => (x.disabled = true));
+      if (o === q.ko) {
+        b.classList.add('right');
+        sScore++;
+      } else {
+        b.classList.add('wrong');
+        ch.children[opts.indexOf(q.ko)].classList.add('right');
+      }
+      speak(q.ko);
+      const r = document.createElement('div');
+      r.className = 'row';
+      r.append(sayBtn(q.ko), button('Next', sNext, 'primary'));
+      fb.append(r);
+      r.lastChild.focus();
+    };
+    ch.append(b);
+  });
+}
+
 // ---------- mode switching ----------
 function setMode(m) {
   mode = m;
@@ -598,8 +811,8 @@ function setMode(m) {
 
 function start() {
   renderSide();
-  document.getElementById('range-label').textContent = mode === 'words' ? 'Lessons' : 'Range';
-  ({ cards: startCards, quiz: startQuiz, spell: startSpell, words: startWords })[mode]();
+  document.getElementById('range-label').textContent = mode === 'words' || mode === 'sent' ? 'Lessons' : 'Range';
+  ({ cards: startCards, quiz: startQuiz, spell: startSpell, words: startWords, sent: startSent })[mode]();
 }
 
 start();

@@ -159,3 +159,27 @@ export const READING_WORDS = {
   까치: 'magpie', 찌개: 'stew', 씨: 'seed; Mr./Ms. (after a name)', 쓰레기: 'trash', 뿌리: 'root',
   꼬마: 'little kid', 때: 'time, when', 코끼리: 'elephant', 싸다: 'to be cheap',
 };
+
+// Sentences by lesson: [lesson, tiles, English].
+// Tiles are the blocks for "Build it". A tile starting with "+" attaches to the previous tile with no space.
+export const SENTENCES = [
+  [8, ['이거', '뭐', '+예요?'], 'What is this?'],
+  [8, ['커피', '+예요.'], "It's coffee."],
+  [8, ['사과', '+예요.'], "It's an apple."],
+  [8, ['의사', '+예요.'], "I'm a doctor."],
+  [8, ['돼지', '+예요.'], "It's a pig."],
+  [8, ['이거', '+예요.'], "It's this one."],
+  [9, ['커피', '주세요.'], 'Coffee, please.'],
+  [9, ['이거', '주세요.'], 'This one, please.'],
+  [9, ['우유', '주세요.'], 'Milk, please.'],
+  [9, ['사과', '주세요.'], 'An apple, please.'],
+  [9, ['하나', '더', '주세요.'], 'One more, please.'],
+  [9, ['비싸요!'], "It's expensive!"],
+].map(([l, tiles, en]) => ({ l, tiles, en }));
+
+// Common slips, used as wrong options: [right, wrong]. "Build it" adds a wrong tile; "Pick one" builds wrong sentences.
+export const SENTENCE_SLIPS = [
+  ['예요', '예유'], ['예요', '에요'], ['주세요', '주세유'], ['주세요', '즈세요'], ['뭐', '뫼'], ['뭐', '모'],
+  ['이거', '이고'], ['커피', '코피'], ['커피', '커히'], ['사과', '사고'], ['돼지', '대지'], ['돼지', '되지'],
+  ['비싸요', '비사요'], ['비싸요', '피싸요'], ['하나', '하니'], ['우유', '오유'], ['의사', '이사'],
+];
