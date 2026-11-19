@@ -3,7 +3,7 @@
 // its letters to GROUPS, its words to WORDS, and bump CURRENT_LESSON.
 
 // The latest lesson Kerstin has finished. The home page shows this lesson.
-export const CURRENT_LESSON = 9;
+export const CURRENT_LESSON = 10;
 
 export const LESSONS = [
   { n: 1, week: 1, title: 'Basic vowels' },
@@ -15,6 +15,7 @@ export const LESSONS = [
   { n: 7, week: 2, title: 'Compound vowels ㅐ ㅒ ㅔ ㅖ' },
   { n: 8, week: 2, title: 'Compound vowels ㅘ ㅙ ㅚ ㅝ ㅞ ㅟ ㅢ' },
   { n: 9, week: 2, title: 'Tense consonants ㄲ ㄸ ㅃ ㅆ ㅉ' },
+  { n: 10, week: 2, title: 'Final consonants ㄴ ㄹ ㅁ ㅇ' },
 ];
 
 // Letter groups. Each item: [letter, romanization, example syllable, pronunciation tip].
@@ -140,7 +141,23 @@ export const WORDS = [
   [9, '가짜', 'fake', '가 就是漢字「假」', '가 is Sino-Korean, from Chinese jiǎ (fake). 짜 has a tight ㅉ.'],
   [9, '또', 'again; also', '用力的「多」：再多來一次', '"Tto": a tight ㄸ. Again and again: tto, tto.'],
   [9, '비싸요', "it's expensive", '「逼撒」：貴到逼你撒錢', '"Bi-ssa-yo": a tight, hissing ㅆ, like sucking air through your teeth at the price.'],
+  [10, '산', 'mountain', '漢字詞「山」，收尾 ㄴ 舌尖頂上牙齦', 'Sino-Korean word, from Chinese shān. End on ㄴ: tongue tip up behind your teeth.'],
+  [10, '눈', 'eye; snow', '一個字兩個意思：用眼睛看雪', 'One word, two meanings: your eyes see the snow. Ends on ㄴ.'],
+  [10, '돈', 'money', '錢掉在地上「咚」一聲，收尾是 ㄴ', 'A coin drops: "don". The ending is ㄴ (n), not ng.'],
+  [10, '문', 'door', '漢字詞「門」', 'Sino-Korean word, from Chinese mén. Ends on ㄴ.'],
+  [10, '사람', 'person', '「撒拉姆」：最後嘴巴閉起來就是 ㅁ', '"Sa-ram": close your lips at the end for ㅁ.'],
+  [10, '김치', 'kimchi', '韓國泡菜；김 最後閉嘴 ㅁ', 'Korean pickled cabbage. Close your lips after 기 for the ㅁ in 김.'],
+  [10, '방', 'room', '漢字詞「房」，收尾 ㅇ 像「昂」的尾巴', 'Sino-Korean word, from Chinese fáng. Ends on ㅇ (ng), like the end of "song".'],
+  [10, '가방', 'bag', '「家房」：把家當都裝進包包', '"Ga-bang": only the second syllable has a final, ㅇ (ng).'],
+  [10, '사랑', 'love', '韓劇「撒浪嘿」的 사랑', 'The 사랑 in "saranghae" (I love you). Ends on ng.'],
+  [10, '물', 'water', '念 mul，最後舌尖頂上去，像英文 pool 的 l', '"Mul": end with your tongue tip up, like the l in "pool".'],
 ].map(([l, ko, en, hint, note]) => ({ l, ko, en, hint, note }));
+
+// Final consonants (batchim) the reading test may use, by the lesson that teaches them.
+// Each item: [letter, sound at the end of a syllable].
+export const FINALS = [
+  { lesson: 10, items: [['ㄴ', 'n'], ['ㄹ', 'l'], ['ㅁ', 'm'], ['ㅇ', 'ng']] },
+];
 
 // Extra real words for the reading test. Only words spelled with letters already learned are asked.
 export const READING_WORDS = {
@@ -158,6 +175,7 @@ export const READING_WORDS = {
   외우다: 'to memorize', 쉬다: 'to rest', 과거: 'the past', 화가: 'painter',
   까치: 'magpie', 찌개: 'stew', 씨: 'seed; Mr./Ms. (after a name)', 쓰레기: 'trash', 뿌리: 'root',
   꼬마: 'little kid', 때: 'time, when', 코끼리: 'elephant', 싸다: 'to be cheap',
+  피곤해요: "I'm tired",
 };
 
 // Sentences by lesson: [lesson, tiles, English].
@@ -175,12 +193,18 @@ export const SENTENCES = [
   [9, ['사과', '주세요.'], 'Please give me an apple.'],
   [9, ['하나', '더', '주세요.'], 'Please give me one more.'],
   [9, ['비싸요!'], "It's expensive!"],
+  [10, ['김치', '+예요?'], 'Is it kimchi?'],
+  [10, ['네,', '김치', '+예요.'], "Yes, it's kimchi."],
+  [10, ['아니요,', '커피', '+예요.'], "No, it's coffee."],
+  [10, ['우유', '+예요?'], 'Is it milk?'],
+  [10, ['아니요,', '주스', '+예요.'], "No, it's juice."],
 ].map(([l, tiles, en]) => ({ l, tiles, en }));
 
 // The sentence pattern each lesson teaches, shown on the lesson buttons in Sentences mode.
 export const SENTENCE_PATTERNS = {
   8: "What is this? It's ___.",
   9: 'Please give me ___.',
+  10: "Is it ___? Yes / No, it's ___.",
 };
 
 // Common slips, used as wrong options: [right, wrong]. "Build it" adds a wrong tile; "Pick one" builds wrong sentences.
@@ -188,4 +212,5 @@ export const SENTENCE_SLIPS = [
   ['예요', '예유'], ['예요', '에요'], ['주세요', '주세유'], ['주세요', '즈세요'], ['뭐', '뫼'], ['뭐', '모'],
   ['이거', '이고'], ['커피', '코피'], ['커피', '커히'], ['사과', '사고'], ['돼지', '대지'], ['돼지', '되지'],
   ['비싸요', '비사요'], ['비싸요', '피싸요'], ['하나', '하니'], ['우유', '오유'], ['의사', '이사'],
+  ['김치', '김지'], ['주스', '쥬스'], ['아니요', '아니유'],
 ];

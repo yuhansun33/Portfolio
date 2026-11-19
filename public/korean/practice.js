@@ -1,4 +1,4 @@
-import { CURRENT_LESSON, GROUPS, READING_WORDS, SENTENCE_PATTERNS, SENTENCES, SENTENCE_SLIPS, WORDS } from './data.js';
+import { CURRENT_LESSON, FINALS, GROUPS, READING_WORDS, SENTENCE_PATTERNS, SENTENCES, SENTENCE_SLIPS, WORDS } from './data.js';
 import { SPEAKER, button, compose, decompose, hasKoreanVoice, html, romanOf, shuffle, speak, store } from './korean.js';
 
 const stage = document.getElementById('stage');
@@ -104,7 +104,7 @@ function renderSide() {
       b.className = 'chip';
       b.setAttribute('aria-pressed', String(on));
       b.innerHTML = SENTENCE_PATTERNS[n]
-        ? `<span>${esc(SENTENCE_PATTERNS[n]).replace(/(\S+) ___/g, '<span class="nowrap">$1 ___</span>')}</span><span class="when">Lesson ${n}</span>`
+        ? `<span>${esc(SENTENCE_PATTERNS[n]).replace(/[^?.]+[?.]/g, (m) => `<span class="nowrap">${m.trim()}</span> `)}</span><span class="when">Lesson ${n}</span>`
         : `<span>Lesson ${n}</span><span class="when">${SENTENCES.filter((x) => x.l === n).length} sentences</span>`;
       b.onclick = () => {
         if (on) {
@@ -533,15 +533,20 @@ function readSets() {
   const groups = GROUPS.filter((g) => g.lesson <= upTo);
   const cs = ['ㅇ', ...groups.filter((g) => g.id.startsWith('c')).flatMap((g) => g.items.map((i) => i[0])).filter((c) => c !== 'ㅇ')];
   const vs = groups.filter((g) => g.id.startsWith('v')).flatMap((g) => g.items.map((i) => i[0]));
-  return { cs, vs: vs.length ? vs : ['ㅏ', 'ㅓ', 'ㅗ', 'ㅜ', 'ㅡ', 'ㅣ'] };
+  const fs = FINALS.filter((f) => f.lesson <= upTo).flatMap((f) => f.items.map((i) => i[0]));
+  return { cs, vs: vs.length ? vs : ['ㅏ', 'ㅓ', 'ㅗ', 'ㅜ', 'ㅡ', 'ㅣ'], fs };
 }
+// Final consonants as Unicode tail indexes, and how each sounds.
+const TAIL = { ㄴ: 4, ㄹ: 8, ㅁ: 16, ㅇ: 21 };
+const TAIL_ROMAN = Object.fromEntries(FINALS.flatMap((f) => f.items).map(([c, r]) => [TAIL[c], r]));
+const TAIL_SLIPS = { 4: [21, 16], 21: [4], 16: [4, 21], 8: [4] };
 const sylRoman = (s) => [...s].map((ch) => {
   const d = decompose(ch);
-  return romanOf(d.l, d.v);
+  return romanOf(d.l, d.v) + (TAIL_ROMAN[d.t] || '');
 }).join(' ');
-const fits = (word, { cs, vs }) => [...word].every((ch) => {
+const fits = (word, { cs, vs, fs }) => [...word].every((ch) => {
   const d = decompose(ch);
-  return d && d.t === 0 && cs.includes(d.l) && vs.includes(d.v);
+  return d && (d.t === 0 || fs.some((f) => TAIL[f] === d.t)) && cs.includes(d.l) && vs.includes(d.v);
 });
 const any = (a) => a[Math.floor(Math.random() * a.length)];
 function randWord(sets) {
@@ -554,8 +559,10 @@ function mutate(word, sets) {
   const chars = [...word];
   const i = Math.floor(Math.random() * chars.length);
   const d = decompose(chars[i]);
-  let { l, v } = d;
-  if (Math.random() < 0.6) {
+  let { l, v, t } = d;
+  if (t && TAIL_SLIPS[t] && Math.random() < 0.4) {
+    t = any(TAIL_SLIPS[t]);
+  } else if (Math.random() < 0.6) {
     const opts = [...(CONF_V[v] || '')].filter((x) => sets.vs.includes(x));
     if (opts.length) v = any(opts);
     else l = any(sets.cs);
@@ -563,7 +570,7 @@ function mutate(word, sets) {
     const opts = [...(CONF_C[l] || '')].filter((x) => sets.cs.includes(x));
     l = opts.length ? any(opts) : any(sets.cs);
   }
-  chars[i] = compose(l, v);
+  chars[i] = String.fromCharCode(compose(l, v).charCodeAt(0) + t);
   return chars.join('');
 }
 
@@ -607,7 +614,7 @@ function drawRead() {
   }
   const q = rQs[rQi];
   const sets = readSets();
-  const prompt = `<div class="q">How do you read this? Letters: <span lang="ko">${sets.cs.join(' ')} + ${sets.vs.join(' ')}</span></div>
+  const prompt = `<div class="q">How do you read this? Letters: <span lang="ko">${sets.cs.join(' ')} + ${sets.vs.join(' ')}${sets.fs.length ? `, final ${sets.fs.join(' ')}` : ''}</span></div>
     <div class="big word-size" lang="ko">${q.word}</div>`;
   const [ch, fb] = quizFrame(rQi + 1, 10, rScore, prompt);
   q.opts.forEach((o) => {
