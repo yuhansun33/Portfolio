@@ -1,4 +1,4 @@
-import { CURRENT_LESSON, GROUPS, READING_WORDS, SENTENCE_PATTERNS, SENTENCES, SENTENCE_SLIPS, WORDS } from './data.js';
+import { CURRENT_LESSON, FINALS, GROUPS, LESSONS, NOTES, READING_WORDS, SENTENCE_PATTERNS, SENTENCES, SENTENCE_SLIPS, WORDS } from './data.js';
 import { SPEAKER, button, compose, decompose, hasKoreanVoice, html, romanOf, shuffle, speak, store } from './korean.js';
 
 const stage = document.getElementById('stage');
@@ -11,7 +11,7 @@ let selected = store.get('groups2', taught.length ? taught : ['v1']).filter((id)
 if (!selected.length) selected = ['v1'];
 let known = store.get('known', {});
 const LETTER_MODES = ['cards', 'quiz', 'spell', 'build'];
-const MODES = [...LETTER_MODES, 'words', 'sent'];
+const MODES = [...LETTER_MODES, 'words', 'sent', 'notes'];
 // the hash wins (shared links); otherwise reopen the practice used last time
 let mode = [location.hash.slice(1), store.get('mode', 'cards')].find((m) => MODES.includes(m)) || 'cards';
 let letterMode = LETTER_MODES.includes(mode) ? mode : 'cards'; // last letter practice, restored when Letters is tapped
@@ -26,6 +26,8 @@ let wKnown = store.get('wknown', {});
 const sentLessons = [...new Set(SENTENCES.map((x) => x.l))];
 let sLessons = store.get('sl', sentLessons).filter((n) => sentLessons.includes(n));
 if (!sLessons.length) sLessons = sentLessons.slice();
+const noteLessons = LESSONS.map((l) => l.n).filter((n) => n <= CURRENT_LESSON);
+let nLesson = noteLessons.includes(store.get('nl')) ? store.get('nl') : noteLessons[noteLessons.length - 1];
 let sSub = ['cards', 'build', 'pick'].includes(store.get('ssub')) ? store.get('ssub') : 'cards';
 
 const sayBtn = (text, label = 'Listen') => {
@@ -38,6 +40,23 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&l
 // ---------- side panel ----------
 function pressed(box, attr, value) {
   box.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset[attr] === String(value))));
+}
+
+const lessonTitle = (n) => LESSONS.find((l) => l.n === n)?.title || `Lesson ${n}`;
+
+// "All lessons" chip: selects every lesson, or, when all are on, goes back to just the latest one.
+function allChip(all, cur, set) {
+  const on = all.every((x) => cur.includes(x));
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'chip all';
+  b.setAttribute('aria-pressed', String(on));
+  b.innerHTML = '<span>All lessons</span>';
+  b.onclick = () => {
+    set(on ? [all[all.length - 1]] : all.slice());
+    start();
+  };
+  range.append(b);
 }
 
 function renderSide() {
@@ -67,13 +86,17 @@ function renderSide() {
         start();
       };
     });
+    allChip(wordLessons, wLessons, (v) => {
+      wLessons = v;
+      store.set('wl', wLessons);
+    });
     wordLessons.forEach((n) => {
       const on = wLessons.includes(n);
       const b = document.createElement('button');
       b.type = 'button';
       b.className = 'chip';
       b.setAttribute('aria-pressed', String(on));
-      b.innerHTML = `<span>Lesson ${n}</span><span class="when">${WORDS.filter((w) => w.l === n).length} words</span>`;
+      b.innerHTML = `<span>${esc(lessonTitle(n))}</span><span class="when">Lesson ${n}</span>`;
       b.onclick = () => {
         if (on) {
           if (wLessons.length > 1) wLessons = wLessons.filter((x) => x !== n);
@@ -97,6 +120,10 @@ function renderSide() {
         start();
       };
     });
+    allChip(sentLessons, sLessons, (v) => {
+      sLessons = v;
+      store.set('sl', sLessons);
+    });
     sentLessons.forEach((n) => {
       const on = sLessons.includes(n);
       const b = document.createElement('button');
@@ -104,7 +131,7 @@ function renderSide() {
       b.className = 'chip';
       b.setAttribute('aria-pressed', String(on));
       b.innerHTML = SENTENCE_PATTERNS[n]
-        ? `<span>${esc(SENTENCE_PATTERNS[n]).replace(/(\S+) ___/g, '<span class="nowrap">$1 ___</span>')}</span><span class="when">Lesson ${n}</span>`
+        ? `<span>${esc(SENTENCE_PATTERNS[n]).replace(/[^?.]+[?.]/g, (m) => `<span class="nowrap">${m.trim()}</span> `)}</span><span class="when">Lesson ${n}</span>`
         : `<span>Lesson ${n}</span><span class="when">${SENTENCES.filter((x) => x.l === n).length} sentences</span>`;
       b.onclick = () => {
         if (on) {
@@ -116,6 +143,31 @@ function renderSide() {
       range.append(b);
     });
     stat.innerHTML = `<b>${SENTENCES.filter((x) => sLessons.includes(x.l)).length}</b> sentences selected`;
+  } else if (mode === 'notes') {
+    // Phones get a compact drop-down; wider screens get the full list of lesson buttons.
+    const sel = html(`<label class="lesson-select"><span class="visually-hidden">Lesson</span><select>${noteLessons
+      .map((n) => `<option value="${n}"${n === nLesson ? ' selected' : ''}>Lesson ${n} · ${esc(lessonTitle(n))}</option>`)
+      .join('')}</select></label>`);
+    sel.querySelector('select').onchange = (e) => {
+      nLesson = Number(e.target.value);
+      store.set('nl', nLesson);
+      start();
+    };
+    sideExtra.append(sel);
+    noteLessons.forEach((n) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chip';
+      b.setAttribute('aria-pressed', String(n === nLesson));
+      b.innerHTML = `<span>${esc(lessonTitle(n))}</span><span class="when">Lesson ${n}</span>`;
+      b.onclick = () => {
+        nLesson = n;
+        store.set('nl', n);
+        start();
+      };
+      range.append(b);
+    });
+    stat.textContent = 'Tap any Korean line to hear it.';
   } else {
     sideExtra.append(html(`<div class="seg" id="lsub" role="group" aria-label="Letter practice">
         <button type="button" data-v="cards">Cards</button><button type="button" data-v="quiz">Quiz</button>
@@ -123,6 +175,10 @@ function renderSide() {
     sideExtra.querySelectorAll('#lsub button').forEach((b) => {
       b.setAttribute('aria-pressed', String(b.dataset.v === mode));
       b.onclick = () => setMode(b.dataset.v);
+    });
+    allChip(GROUPS.map((g) => g.id), selected, (v) => {
+      selected = v;
+      store.set('groups2', selected);
     });
     GROUPS.forEach((g) => {
       const on = selected.includes(g.id);
@@ -436,7 +492,7 @@ function drawWCard() {
   stage.innerHTML = '';
   stage.append(html(`<div class="stage-meta"><span>${wIdx + 1} / ${wDeck.length}</span><span>${left} still to learn</span></div>
     <div class="bar" aria-hidden="true"><i style="width:${Math.round(((wIdx + 1) / wDeck.length) * 100)}%"></i></div>${front}
-    <div class="answer" ${wFlip ? '' : 'hidden'}>${back}${w.note ? `<div class="tip">Tip: ${esc(w.note)}</div>` : ''}</div>
+    <div class="answer" ${wFlip ? '' : 'hidden'}>${back}${wRo(w) ? `<div class="ro-line">${wRo(w)}</div>` : ''}${w.note ? `<div class="tip">Tip: ${esc(w.note)}</div>` : ''}</div>
     <div class="row"></div>`));
   const r = stage.querySelector('.row');
   if (wDir === 'k2e' || wFlip) r.append(sayBtn(w.ko));
@@ -506,7 +562,7 @@ function drawWQ() {
       }
       speak(it.ko);
       fb.innerHTML = '';
-      fb.append(html(`<div class="tip"><span lang="ko" class="example">${it.ko}</span> = ${esc(it.en)}.${it.note ? ` ${esc(it.note)}` : ''}</div>`));
+      fb.append(html(`<div class="tip"><span lang="ko" class="example">${it.ko}</span>${wRo(it) ? ` (${wRo(it)})` : ''} = ${esc(it.en)}.${it.note ? ` ${esc(it.note)}` : ''}</div>`));
       const r = document.createElement('div');
       r.className = 'row';
       r.append(sayBtn(it.ko), button(wQi === 9 ? 'See score' : 'Next', () => {
@@ -533,29 +589,44 @@ function readSets() {
   const groups = GROUPS.filter((g) => g.lesson <= upTo);
   const cs = ['ㅇ', ...groups.filter((g) => g.id.startsWith('c')).flatMap((g) => g.items.map((i) => i[0])).filter((c) => c !== 'ㅇ')];
   const vs = groups.filter((g) => g.id.startsWith('v')).flatMap((g) => g.items.map((i) => i[0]));
-  return { cs, vs: vs.length ? vs : ['ㅏ', 'ㅓ', 'ㅗ', 'ㅜ', 'ㅡ', 'ㅣ'] };
+  const fs = FINALS.filter((f) => f.lesson <= upTo).flatMap((f) => f.items.map((i) => i[0]));
+  return { cs, vs: vs.length ? vs : ['ㅏ', 'ㅓ', 'ㅗ', 'ㅜ', 'ㅡ', 'ㅣ'], fs };
 }
+// Final consonants as Unicode tail indexes, and how each sounds.
+const TAIL = { ㄱ: 1, ㄴ: 4, ㄷ: 7, ㄹ: 8, ㅁ: 16, ㅂ: 17, ㅅ: 19, ㅇ: 21, ㅊ: 23, ㅍ: 26 };
+const TAIL_ROMAN = Object.fromEntries(FINALS.flatMap((f) => f.items).map(([c, r]) => [TAIL[c], r]));
+const TAIL_SLIPS = { 4: [21, 16], 21: [4], 16: [4, 21, 17], 8: [4], 1: [17, 7, 21], 7: [1, 17, 4], 17: [1, 16], 19: [1, 17], 23: [1, 17], 26: [1, 7, 16] };
+// Words from the lessons on tense consonants and finals also show their romanization.
+const ROMAN_FROM = 9;
+const wRo = (w) => (w.l >= ROMAN_FROM ? sylRoman(w.ko).replace(/ /g, '') : '');
 const sylRoman = (s) => [...s].map((ch) => {
   const d = decompose(ch);
-  return romanOf(d.l, d.v);
+  return romanOf(d.l, d.v) + (TAIL_ROMAN[d.t] || '');
 }).join(' ');
-const fits = (word, { cs, vs }) => [...word].every((ch) => {
+const fits = (word, { cs, vs, fs }) => [...word].every((ch) => {
   const d = decompose(ch);
-  return d && d.t === 0 && cs.includes(d.l) && vs.includes(d.v);
+  return d && (d.t === 0 || fs.some((f) => TAIL[f] === d.t)) && cs.includes(d.l) && vs.includes(d.v);
 });
 const any = (a) => a[Math.floor(Math.random() * a.length)];
 function randWord(sets) {
   const n = any([1, 2, 2, 2, 3]);
   let w = '';
-  for (let i = 0; i < n; i++) w += compose(any(sets.cs), any(sets.vs));
+  for (let i = 0; i < n; i++) {
+    // Once final consonants are taught, about one block in three gets one.
+    const t = sets.fs.length && Math.random() < 0.35 ? TAIL[any(sets.fs)] : 0;
+    w += String.fromCharCode(compose(any(sets.cs), any(sets.vs)).charCodeAt(0) + t);
+  }
   return w;
 }
 function mutate(word, sets) {
   const chars = [...word];
   const i = Math.floor(Math.random() * chars.length);
   const d = decompose(chars[i]);
-  let { l, v } = d;
-  if (Math.random() < 0.6) {
+  let { l, v, t } = d;
+  const tailOpts = (TAIL_SLIPS[t] || []).filter((x) => sets.fs.some((f) => TAIL[f] === x));
+  if (t && tailOpts.length && Math.random() < 0.4) {
+    t = any(tailOpts);
+  } else if (Math.random() < 0.6) {
     const opts = [...(CONF_V[v] || '')].filter((x) => sets.vs.includes(x));
     if (opts.length) v = any(opts);
     else l = any(sets.cs);
@@ -563,7 +634,7 @@ function mutate(word, sets) {
     const opts = [...(CONF_C[l] || '')].filter((x) => sets.cs.includes(x));
     l = opts.length ? any(opts) : any(sets.cs);
   }
-  chars[i] = compose(l, v);
+  chars[i] = String.fromCharCode(compose(l, v).charCodeAt(0) + t);
   return chars.join('');
 }
 
@@ -607,7 +678,7 @@ function drawRead() {
   }
   const q = rQs[rQi];
   const sets = readSets();
-  const prompt = `<div class="q">How do you read this? Letters: <span lang="ko">${sets.cs.join(' ')} + ${sets.vs.join(' ')}</span></div>
+  const prompt = `<div class="q">How do you read this? Letters: <span lang="ko">${sets.cs.join(' ')} + ${sets.vs.join(' ')}${sets.fs.length ? `, final ${sets.fs.join(' ')}` : ''}</span></div>
     <div class="big word-size" lang="ko">${q.word}</div>`;
   const [ch, fb] = quizFrame(rQi + 1, 10, rScore, prompt);
   q.opts.forEach((o) => {
@@ -822,6 +893,32 @@ function drawPick() {
   });
 }
 
+// ---------- notes ----------
+function drawNotes() {
+  const n = nLesson;
+  const N = NOTES[n] || { points: [] };
+  const row = (ko, cells) => `<li><button type="button" class="say-row" data-say="${esc(ko)}">${cells}<span class="say-ico" aria-hidden="true">${SPEAKER}</span></button></li>`;
+  const ko = (t) => `<span class="n-ko" lang="ko">${t}</span>`;
+  const ro = (t) => (t ? `<span class="n-ro">${esc(t)}</span>` : '');
+  const en = (t) => `<span class="n-en">${esc(t)}</span>`;
+  const section = (title, body) => `<section class="n-sec"><h3>${title}</h3>${body}</section>`;
+  let h = `<header class="n-head"><span class="n-kicker">Lesson ${n}</span><h2>${esc(lessonTitle(n))}</h2></header>`;
+  const letters = GROUPS.filter((g) => g.lesson === n).flatMap((g) => g.items);
+  if (letters.length) h += section('Letters', `<ul class="n-list">${letters.map((i) => row(i[2], ko(i[0]) + ro(i[1]) + en(i[3]))).join('')}</ul>`);
+  if (N.finals) h += section('Final consonants', `<ul class="n-list">${N.finals.map((f) => row(f[2].split(', ')[0], ko(f[0]) + ro(f[1]) + `<span class="n-en">e.g. <span lang="ko">${f[2]}</span></span>`)).join('')}</ul>`);
+  if (N.points.length) h += section('Key points', `<ul class="n-points">${N.points.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>`);
+  const words = WORDS.filter((w) => w.l === n).map((w) => [w.ko, wRo(w), w.en]).concat((N.words || []).map(([k, e]) => [k, '', e]));
+  if (words.length) h += section('Words', `<ul class="n-list n-words">${words.map(([k, r, e]) => row(k, ko(k) + ro(r) + en(e))).join('')}</ul>`);
+  const sents = SENTS.filter((x) => x.l === n);
+  if (sents.length) {
+    const pat = SENTENCE_PATTERNS[n] ? ` <span class="n-pat">${esc(SENTENCE_PATTERNS[n])}</span>` : '';
+    h += section(`Sentences${pat}`, `<ul class="n-list n-sents">${sents.map((x) => row(x.ko, ko(x.ko) + en(x.en))).join('')}</ul>`);
+  }
+  stage.innerHTML = '';
+  stage.append(html(`<article class="notes">${h}</article>`));
+  stage.querySelectorAll('.say-row').forEach((b) => (b.onclick = () => speak(b.dataset.say)));
+}
+
 // ---------- mode switching ----------
 function setMode(m) {
   mode = m;
@@ -833,7 +930,9 @@ function setMode(m) {
 
 function start() {
   renderSide();
-  ({ cards: startCards, quiz: startQuiz, spell: startSpell, build: startBuild, words: startWords, sent: startSent })[mode]();
+  stage.classList.toggle('is-notes', mode === 'notes');
+  document.querySelector('.side').classList.toggle('is-notes', mode === 'notes');
+  ({ cards: startCards, quiz: startQuiz, spell: startSpell, build: startBuild, words: startWords, sent: startSent, notes: drawNotes })[mode]();
 }
 
 start();
