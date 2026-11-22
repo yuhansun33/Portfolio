@@ -1,4 +1,4 @@
-import { CURRENT_LESSON, GROUPS, LESSONS, WORDS } from './data.js';
+import { CURRENT_LESSON, FINALS, GROUPS, LESSONS, WORDS } from './data.js';
 import { SPEAKER as speakerIcon, speak, store } from './korean.js';
 
 const lesson = LESSONS.find((l) => l.n === CURRENT_LESSON) || LESSONS[LESSONS.length - 1];
@@ -24,7 +24,18 @@ if (lessonLetters.length) {
     letterBox.append(s);
   });
 } else {
-  letterBox.hidden = true;
+  // A lesson on final consonants shows those letters instead.
+  const finals = FINALS.filter((f) => f.lesson === lesson.n).flatMap((f) => f.items);
+  if (finals.length) {
+    letterBox.setAttribute('aria-label', 'Final consonants in this lesson');
+    finals.forEach(([c, sound]) => {
+      const s = document.createElement('span');
+      s.className = 'final';
+      s.innerHTML = `${c}<small>${sound}</small>`;
+      s.title = `At the end of a syllable, ${c} sounds like ${sound}`;
+      letterBox.append(s);
+    });
+  } else letterBox.hidden = true;
 }
 
 document.getElementById('known-bar').style.width = `${Math.round((knownCount / allLetters.length) * 100)}%`;

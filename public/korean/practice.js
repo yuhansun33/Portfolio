@@ -144,6 +144,16 @@ function renderSide() {
     });
     stat.innerHTML = `<b>${SENTENCES.filter((x) => sLessons.includes(x.l)).length}</b> sentences selected`;
   } else if (mode === 'notes') {
+    // Phones get a compact drop-down; wider screens get the full list of lesson buttons.
+    const sel = html(`<label class="lesson-select"><span class="visually-hidden">Lesson</span><select>${noteLessons
+      .map((n) => `<option value="${n}"${n === nLesson ? ' selected' : ''}>Lesson ${n} · ${esc(lessonTitle(n))}</option>`)
+      .join('')}</select></label>`);
+    sel.querySelector('select').onchange = (e) => {
+      nLesson = Number(e.target.value);
+      store.set('nl', nLesson);
+      start();
+    };
+    sideExtra.append(sel);
     noteLessons.forEach((n) => {
       const b = document.createElement('button');
       b.type = 'button';
@@ -601,7 +611,11 @@ const any = (a) => a[Math.floor(Math.random() * a.length)];
 function randWord(sets) {
   const n = any([1, 2, 2, 2, 3]);
   let w = '';
-  for (let i = 0; i < n; i++) w += compose(any(sets.cs), any(sets.vs));
+  for (let i = 0; i < n; i++) {
+    // Once final consonants are taught, about one block in three gets one.
+    const t = sets.fs.length && Math.random() < 0.35 ? TAIL[any(sets.fs)] : 0;
+    w += String.fromCharCode(compose(any(sets.cs), any(sets.vs)).charCodeAt(0) + t);
+  }
   return w;
 }
 function mutate(word, sets) {
@@ -917,6 +931,7 @@ function setMode(m) {
 function start() {
   renderSide();
   stage.classList.toggle('is-notes', mode === 'notes');
+  document.querySelector('.side').classList.toggle('is-notes', mode === 'notes');
   ({ cards: startCards, quiz: startQuiz, spell: startSpell, build: startBuild, words: startWords, sent: startSent, notes: drawNotes })[mode]();
 }
 
