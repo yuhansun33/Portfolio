@@ -3,7 +3,7 @@
 // its letters to GROUPS, its words to WORDS, and bump CURRENT_LESSON.
 
 // The latest lesson Kerstin has finished. The home page shows this lesson.
-export const CURRENT_LESSON = 10;
+export const CURRENT_LESSON = 11;
 
 export const LESSONS = [
   { n: 1, week: 1, title: 'Basic vowels' },
@@ -16,6 +16,7 @@ export const LESSONS = [
   { n: 8, week: 2, title: 'Compound vowels ㅘ ㅙ ㅚ ㅝ ㅞ ㅟ ㅢ' },
   { n: 9, week: 2, title: 'Tense consonants ㄲ ㄸ ㅃ ㅆ ㅉ' },
   { n: 10, week: 2, title: 'Final consonants ㄴ ㄹ ㅁ ㅇ' },
+  { n: 11, week: 2, title: 'Final consonants ㄱ ㄷ ㅂ (short stops)' },
 ];
 
 // Letter groups. Each item: [letter, romanization, example syllable, pronunciation tip].
@@ -151,12 +152,23 @@ export const WORDS = [
   [10, '가방', 'bag', '「家房」：把家當都裝進包包', '"Ga-bang": only the second syllable has a final, ㅇ (ng).'],
   [10, '사랑', 'love', '韓劇「撒浪嘿」的 사랑', 'The 사랑 in "saranghae" (I love you). Ends on ng.'],
   [10, '물', 'water', '念 mul，最後舌尖頂上去，像英文 pool 的 l', '"Mul": end with your tongue tip up, like the l in "pool".'],
+  [11, '책', 'book', '漢字詞「冊」；收尾 ㄱ 像台語「六」的短尾巴', "Sino-Korean word, from Chinese cè. End on a short k and don't let it pop."],
+  [11, '밥', 'rice; meal', '「爸」最後嘴巴閉起來，短促的 p', '"Bap": close your lips at the end and hold them shut.'],
+  [11, '집', 'house, home', '「吉」最後閉嘴：回家吉祥', '"Jip": lips close at the end, like shutting the front door.'],
+  [11, '국', 'soup', '「咕」一聲喝湯，收尾 ㄱ', '"Guk": a gulp of soup, cut off short at the k.'],
+  [11, '약', 'medicine', '漢字詞「藥」，台語也念 io̍h，短促收尾', 'Sino-Korean word, from Chinese yào. Ends on a short k.'],
+  [11, '옷', 'clothes', '寫 ㅅ 但收尾念 t：「喔」一聲衣服破了', 'Written with ㅅ, but at the end it sounds like t: "ot".'],
+  [11, '꽃', 'flower', '寫 ㅊ 但收尾念 t；ㄲ 用力', 'Written with ㅊ, but at the end it sounds like t: "kkot", with a tight ㄲ.'],
+  [11, '맛', 'taste', '寫 ㅅ 但收尾念 t：「罵」太難吃的味道', 'Written with ㅅ, but at the end it sounds like t: "mat".'],
+  [11, '앞', 'front', '寫 ㅍ 但收尾念 p：嘴巴閉起來看前面', 'Written with ㅍ, but at the end it sounds like p: "ap", lips closed.'],
+  [11, '수박', 'watermelon', '「蘇爸」：蘇爸爸愛吃西瓜', '"Su-bak": ends on a short k, like a quick knock on a watermelon.'],
 ].map(([l, ko, en, hint, note]) => ({ l, ko, en, hint, note }));
 
 // Final consonants (batchim) the reading test may use, by the lesson that teaches them.
 // Each item: [letter, sound at the end of a syllable].
 export const FINALS = [
   { lesson: 10, items: [['ㄴ', 'n'], ['ㄹ', 'l'], ['ㅁ', 'm'], ['ㅇ', 'ng']] },
+  { lesson: 11, items: [['ㄱ', 'k'], ['ㄷ', 't'], ['ㅂ', 'p'], ['ㅅ', 't'], ['ㅊ', 't'], ['ㅍ', 'p']] },
 ];
 
 // Extra real words for the reading test. Only words spelled with letters already learned are asked.
@@ -198,6 +210,12 @@ export const SENTENCES = [
   [10, ['아니요,', '커피', '+예요.'], "No, it's coffee."],
   [10, ['우유', '+예요?'], 'Is it milk?'],
   [10, ['아니요,', '주스', '+예요.'], "No, it's juice."],
+  [11, ['책', '+이에요.'], "It's a book."],
+  [11, ['이거', '책', '+이에요?'], 'Is this a book?'],
+  [11, ['아니요,', '밥', '+이에요.'], "No, it's rice."],
+  [11, ['꽃', '+이에요.'], "It's a flower."],
+  [11, ['물', '+이에요.'], "It's water."],
+  [11, ['수박', '+이에요?'], 'Is it watermelon?'],
 ].map(([l, tiles, en]) => ({ l, tiles, en }));
 
 // The sentence pattern each lesson teaches, shown on the lesson buttons in Sentences mode.
@@ -205,6 +223,7 @@ export const SENTENCE_PATTERNS = {
   8: "What is this? It's ___.",
   9: 'Please give me ___.',
   10: "Is it ___? Yes / No, it's ___.",
+  11: "It's ___. (이에요 after a final consonant)",
 };
 
 // Common slips, used as wrong options: [right, wrong]. "Build it" adds a wrong tile; "Pick one" builds wrong sentences.
@@ -213,4 +232,63 @@ export const SENTENCE_SLIPS = [
   ['이거', '이고'], ['커피', '코피'], ['커피', '커히'], ['사과', '사고'], ['돼지', '대지'], ['돼지', '되지'],
   ['비싸요', '비사요'], ['비싸요', '피싸요'], ['하나', '하니'], ['우유', '오유'], ['의사', '이사'],
   ['김치', '김지'], ['주스', '쥬스'], ['아니요', '아니유'],
+  ['이에요', '이예요'], ['꽃', '꼿'],
 ];
+
+// Lesson notes for the Notes tab. Letters, words and sentences come from the lists above;
+// this adds each lesson's key points, plus final consonants and extra words where a lesson has them.
+// finals: [letters, sound, examples]. words: [Korean, English].
+export const NOTES = {
+  1: { points: [
+    'Korean letters stack into square syllable blocks: a consonant plus a vowel make one block.',
+    'A vowel on its own is written with a silent ㅇ in front: 아, 오, 이.',
+    'Tall vowels (ㅏ ㅓ ㅣ) go to the right of the consonant. Flat vowels (ㅗ ㅜ ㅡ) go underneath.',
+  ] },
+  2: { points: ['Add one more short stroke to ㅏ ㅓ ㅗ ㅜ and you add a y sound: ㅑ ㅕ ㅛ ㅠ.'] },
+  3: { points: ['ㄱ and ㄷ sit between g/k and d/t. Between two vowels they soften to g and d.'] },
+  4: { points: [
+    'ㅇ is silent at the start of a block and sounds like ng at the end.',
+    'Before ㅣ and the y-vowels, ㅅ sounds like sh: 시 is "shi".',
+  ] },
+  5: { points: [
+    'Aspirated consonants come with a puff of air.',
+    'Pairs without and with the puff: ㅈ / ㅊ, ㄱ / ㅋ, ㄷ / ㅌ, ㅂ / ㅍ.',
+  ] },
+  6: {
+    points: [
+      'ㄱ ㄷ ㅂ ㅈ between two vowels turn soft (voiced): 고기 is "gogi", 모기 is "mogi".',
+      'ㄹ between two vowels is a quick tap of the tongue, close to the tt in American "butter": 나라 is "nara".',
+    ],
+    words: [['나라', 'country'], ['오리', 'duck'], ['모기', 'mosquito'], ['이마', 'forehead'], ['누구', 'who'], ['여기', 'here'], ['버스', 'bus'], ['토마토', 'tomato']],
+  },
+  7: { points: ['ㅐ and ㅔ sound almost the same today, so learn the spelling: ㅐ has its short stroke on the right (ㅏ + ㅣ), ㅔ on the left (ㅓ + ㅣ).'] },
+  8: { points: [
+    'Vowels starting with ㅗ pair with ㅏ ㅐ ㅣ. Vowels starting with ㅜ pair with ㅓ ㅔ ㅣ.',
+    'ㅙ ㅚ ㅞ sound almost the same today.',
+    'Pattern: ___예요 attaches straight to the noun, with no space.',
+  ] },
+  9: { points: [
+    'Tense consonants: tighten your throat and let no air puff out.',
+    'Pattern: ___ 주세요 has a space before it, unlike 예요.',
+    '더 means "more" (an amount). 또 means "again" (a repeat).',
+  ] },
+  10: {
+    points: [
+      'A final consonant (batchim) sits at the bottom of a block.',
+      'Finals make only 7 sounds: ㄴ ㄹ ㅁ ㅇ, plus k, t and p.',
+      'ㄴ: tongue tip up behind your teeth, as in "sun". ㅇ: back of the tongue up, as in "song". ㅁ: close your lips.',
+      'Ask with ___예요? and answer with 네 (yes) or 아니요 (no).',
+    ],
+    finals: [['ㄴ', 'n', '산'], ['ㄹ', 'l', '물'], ['ㅁ', 'm', '김치'], ['ㅇ', 'ng', '방']],
+  },
+  11: {
+    points: [
+      'These finals stop short, without letting the sound out: k as in "book" said quickly, t as in "hot", p with your lips staying shut.',
+      'Many letters, only three sounds. ㄸ ㅃ ㅉ are never finals.',
+      'After a final consonant use 이에요: 책이에요. After a vowel use 예요: 커피예요.',
+      '이에요 has 에 in the middle, with no y. Don\'t write 이예요.',
+      'Linking: a final slides onto the 이 after it. 책이에요 sounds like 채기에요, and 옷이에요 like 오시에요.',
+    ],
+    finals: [['ㄱ ㅋ ㄲ', 'k', '책, 국'], ['ㄷ ㅅ ㅆ ㅈ ㅊ ㅌ ㅎ', 't', '옷, 꽃, 맛'], ['ㅂ ㅍ', 'p', '밥, 앞']],
+  },
+};
